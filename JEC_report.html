@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta property="og:title" content="JEC 2.0 · 營運整合企劃報告">
+<meta property="og:description" content="讓系統真正落地，讓資訊開始流動。商業空間室內設計 × Notion 數位整合 × 跨部門流程重建">
+<meta property="og:type" content="website">
+<title>JEC 2.0 · 營運整合企劃報告 | 公司內部討論版</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap');
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --gold:#C9A84C;--gold-dim:rgba(201,168,76,0.13);
+  --dark:#0E0E0E;--dark2:#141414;--dark3:#1C1C1C;--dark4:#232323;
+  --t1:#F0EDE6;--t2:#A8A49C;--t3:#6B6760;
+  --teal:#4ECDC4;--coral:#E8754A;--purple:#9B7FD4;--green:#6BBF7A;
+  --border:rgba(201,168,76,0.18);
+}
+body{font-family:'Noto Sans TC',sans-serif;background:var(--dark);color:var(--t1);font-size:14px;line-height:1.65}
+.nav{position:sticky;top:0;z-index:100;background:rgba(14,14,14,0.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:10px 32px;flex-wrap:wrap;gap:8px}
+.nav-brand{font-size:13px;font-weight:700;color:var(--gold);letter-spacing:.06em}
+.nav-badge{font-size:9px;padding:3px 10px;border-radius:20px;border:1px solid var(--coral);color:var(--coral);letter-spacing:.1em;text-transform:uppercase}
+.nav-links{display:flex;gap:18px;flex-wrap:wrap}
+.nav-link{font-size:11px;color:var(--t3);text-decoration:none;transition:color .2s}
+.nav-link:hover{color:var(--gold)}
+.s{padding:56px 48px;border-top:1px solid var(--border)}
+.s-alt{background:var(--dark2)}
+.lbl{font-size:10px;letter-spacing:.2em;color:var(--gold);text-transform:uppercase;margin-bottom:10px}
+.ttl{font-size:22px;font-weight:700;color:var(--t1);margin-bottom:6px;line-height:1.3}
+.sub{font-size:12px;color:var(--t2);margin-bottom:28px}
+/* COVER */
+.cover{min-height:100vh;background:var(--dark);display:flex;flex-direction:column;justify-content:center;padding:80px 48px 60px;position:relative;overflow:hidden}
+.cover::before{content:'';position:absolute;top:-100px;right:-100px;width:480px;height:480px;background:radial-gradient(circle,rgba(201,168,76,.07) 0%,transparent 70%);pointer-events:none}
+.cover::after{content:'';position:absolute;bottom:-80px;left:-60px;width:320px;height:320px;background:radial-gradient(circle,rgba(78,205,196,.05) 0%,transparent 70%);pointer-events:none}
+.internal-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(232,117,74,.1);border:1px solid rgba(232,117,74,.4);border-radius:6px;padding:6px 14px;margin-bottom:28px;font-size:11px;color:var(--coral);letter-spacing:.1em;width:fit-content}
+.internal-dot{width:6px;height:6px;border-radius:50%;background:var(--coral);animation:blink 1.8s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.cover-eyebrow{font-size:11px;letter-spacing:.18em;color:var(--t3);text-transform:uppercase;margin-bottom:16px}
+.cover-title{font-size:clamp(28px,4vw,48px);font-weight:700;line-height:1.15;color:var(--t1);margin-bottom:10px}
+.cover-title span{color:var(--gold)}
+.cover-subline{font-size:14px;color:var(--t2);font-weight:300;margin-bottom:40px}
+.cover-div{width:44px;height:2px;background:var(--gold);margin:28px 0}
+.cover-meta{display:flex;gap:36px;flex-wrap:wrap}
+.cm-item{display:flex;flex-direction:column;gap:3px}
+.cm-lbl{font-size:9px;letter-spacing:.15em;color:var(--t3);text-transform:uppercase}
+.cm-val{font-size:13px;color:var(--t1);font-weight:500}
+.scroll-hint{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);text-align:center;font-size:10px;color:var(--t3);letter-spacing:.1em}
+.scroll-arr{display:block;font-size:16px;animation:down 2s ease-in-out infinite;margin-top:4px}
+@keyframes down{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+/* STATS */
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border-radius:12px;overflow:hidden;margin-bottom:28px}
+.stat-cell{background:var(--dark3);padding:28px 20px;text-align:center}
+.stat-num{font-size:36px;font-weight:700;color:var(--gold);line-height:1;margin-bottom:4px}
+.stat-unit{font-size:12px;color:var(--t3);margin-bottom:4px}
+.stat-label{font-size:11px;color:var(--t2)}
+/* PROGRESS */
+.pg-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.pg-card{background:var(--dark3);border:1px solid var(--border);border-radius:12px;padding:20px}
+.pg-lbl{font-size:10px;color:var(--t3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px}
+.pg-bar-wrap{background:var(--dark4);border-radius:4px;height:7px;margin-bottom:8px;overflow:hidden}
+.pg-bar{height:100%;border-radius:4px}
+.pg-pct{font-size:26px;font-weight:700;line-height:1}
+.pg-desc{font-size:11px;color:var(--t2);margin-top:5px;line-height:1.55}
+/* FLOW */
+.flow-wrap{overflow-x:auto;padding-bottom:8px;margin-bottom:14px}
+.flow-row{display:flex;align-items:flex-start;gap:0;min-width:820px}
+.flow-ph{display:flex;flex-direction:column;align-items:center;flex:1}
+.fp-lbl{font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--t3);margin-bottom:7px;text-align:center}
+.fp-node{background:var(--dark3);border:1px solid var(--border);border-radius:8px;padding:10px;text-align:center;width:100%;font-size:11px;color:var(--t1);font-weight:500}
+.fp-node.a{border-color:var(--gold);background:var(--gold-dim)}
+.fp-node.p{border-color:var(--coral);background:rgba(232,117,74,.07);color:var(--t2)}
+.fp-sub-txt{font-size:9px;color:var(--t3);margin-top:3px;line-height:1.4}
+.fp-subs{display:flex;flex-direction:column;gap:3px;width:100%;margin-top:4px}
+.fp-sub{background:var(--dark4);border-radius:5px;padding:5px 8px;font-size:9px;color:var(--t2);text-align:center}
+.flow-arr{display:flex;align-items:center;padding:0 3px;padding-top:28px;color:var(--t3);font-size:14px;flex-shrink:0}
+.flow-legend{display:flex;gap:16px;flex-wrap:wrap}
+.fl-item{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--t2)}
+.fl-dot{width:10px;height:10px;border-radius:2px;flex-shrink:0}
+/* ENCODING */
+.code-demo{background:var(--dark4);border-radius:8px;padding:16px 20px;font-family:'Courier New',monospace;font-size:13px;color:var(--gold);letter-spacing:.04em;margin-bottom:10px;border:1px solid var(--border)}
+.code-demo span{color:var(--t2);font-size:11px;margin-left:14px}
+.code-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px}
+.code-card{background:var(--dark3);border-radius:8px;padding:14px 16px;border:1px solid var(--border)}
+.cc-lbl{font-size:9px;letter-spacing:.12em;color:var(--t3);text-transform:uppercase;margin-bottom:5px}
+.cc-val{font-size:13px;font-weight:700;color:var(--gold);font-family:'Courier New',monospace;margin-bottom:3px}
+.cc-desc{font-size:10px;color:var(--t2)}
+.tag-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
+.tag{font-size:10px;padding:3px 10px;border-radius:20px;border:1px solid;letter-spacing:.04em}
+/* DEPT MODULES */
+.dept-mods{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.dm-card{background:var(--dark3);border-radius:12px;border:1px solid var(--border);overflow:hidden}
+.dm-card.soon{border-style:dashed;border-color:var(--t3);opacity:.65;grid-column:1/-1}
+.dm-card.full{grid-column:1/-1}
+.dm-hd{padding:16px 20px 12px;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;gap:12px}
+.dm-icon{width:40px;height:40px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.dm-title{font-size:14px;font-weight:700;color:var(--t1);margin-bottom:2px}
+.dm-role{font-size:10px;color:var(--t3);letter-spacing:.06em;text-transform:uppercase}
+.dm-body{padding:14px 20px 16px}
+.dm-item{display:flex;align-items:flex-start;gap:9px;padding:7px 0;border-bottom:1px solid rgba(255,255,255,.04)}
+.dm-item:last-of-type{border-bottom:none}
+.dm-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;margin-top:5px}
+.dm-ititle{font-size:12px;font-weight:700;color:var(--t1);margin-bottom:2px}
+.dm-idesc{font-size:11px;color:var(--t2);line-height:1.5}
+.dm-status{display:inline-block;font-size:9px;padding:2px 10px;border-radius:20px;letter-spacing:.08em;text-transform:uppercase;margin-top:12px}
+.s-done{background:rgba(107,191,122,.15);color:var(--green)}
+.s-wip{background:rgba(232,117,74,.15);color:var(--coral)}
+.s-soon{background:rgba(107,107,107,.2);color:var(--t3);border:1px dashed var(--t3)}
+.pm-mods{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:4px}
+.pm-sub{background:var(--dark4);border-radius:8px;padding:12px 14px;border:1px solid rgba(201,168,76,.1)}
+.pm-sub-t{font-size:12px;font-weight:700;color:var(--gold);margin-bottom:7px}
+.pm-si{font-size:11px;color:var(--t2);padding-left:12px;position:relative;margin-bottom:3px;line-height:1.5}
+.pm-si::before{content:'·';position:absolute;left:3px;color:var(--t3)}
+/* DUAL TRACK */
+.dual{display:grid;grid-template-columns:1fr 44px 1fr;gap:0;align-items:center;margin-bottom:14px}
+.tr-box{background:var(--dark3);border:1px solid var(--border);border-radius:12px;padding:22px}
+.tr-title{font-size:13px;font-weight:700;color:var(--t1);margin-bottom:10px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.tr-badge{font-size:9px;padding:2px 8px;border-radius:20px;letter-spacing:.07em;text-transform:uppercase}
+.tr-item{font-size:11px;color:var(--t2);padding-left:13px;position:relative;margin-bottom:5px}
+.tr-item::before{content:'›';position:absolute;left:0;color:var(--t3)}
+.tr-center{text-align:center;font-size:18px;color:var(--t3)}
+/* DIAGNOSIS */
+.three-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px}
+.dc{background:var(--dark3);border-radius:12px;overflow:hidden;border:1px solid var(--border)}
+.dc-hd{padding:14px 18px 12px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:9px}
+.dc-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+.dc-name{font-size:13px;font-weight:700;color:var(--t1)}
+.dc-role{font-size:9px;color:var(--t3);letter-spacing:.05em;margin-top:1px}
+.dc-body{padding:14px 18px}
+.qa-q{font-size:9px;color:var(--t3);letter-spacing:.05em;margin-bottom:3px;margin-top:10px}
+.qa-q:first-child{margin-top:0}
+.qa-a{font-size:11px;color:var(--t1);font-weight:500;background:var(--dark4);border-radius:6px;padding:5px 10px;line-height:1.5}
+.qa-a.hl{color:var(--gold);border-left:2px solid var(--gold);padding-left:8px;background:var(--gold-dim)}
+.qa-a.pos{color:var(--green)}
+.qa-a.warn{color:var(--coral)}
+.will-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px}
+.will-card{background:var(--dark3);border-radius:10px;padding:16px;text-align:center;border:1px solid var(--border)}
+.will-dept{font-size:9px;color:var(--t3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px}
+.will-bar-wrap{background:var(--dark4);border-radius:4px;height:5px;margin:7px 0;overflow:hidden}
+.will-bar{height:100%;border-radius:4px}
+.will-score{font-size:20px;font-weight:700;line-height:1;margin-bottom:3px}
+.will-lbl{font-size:10px;color:var(--t2);line-height:1.5}
+.link-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.link-card{background:var(--dark3);border-radius:10px;padding:18px;border:1px solid var(--border)}
+.link-dept{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--t3);margin-bottom:8px}
+.link-q{font-size:12px;color:var(--t1);font-weight:500;line-height:1.6;margin-bottom:10px;border-left:2px solid var(--gold);padding-left:11px}
+.link-a{font-size:11px;color:var(--teal);display:flex;align-items:flex-start;gap:6px;line-height:1.5}
+.link-a::before{content:'→';flex-shrink:0}
+/* GANTT */
+.gantt-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+.g-box{background:var(--dark3);border-radius:10px;padding:18px;border:1px solid var(--border)}
+.g-lbl{font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--t3);margin-bottom:12px}
+.g-item{display:flex;align-items:center;gap:8px;font-size:11px;color:var(--t2);margin-bottom:5px}
+.g-check{color:var(--green);flex-shrink:0}
+.g-sub{background:var(--dark4);border-radius:8px;padding:11px 14px;margin-top:8px}
+.g-sub-t{font-size:11px;font-weight:700;margin-bottom:4px}
+.g-sub-d{font-size:10px;color:var(--t2);line-height:1.5}
+/* ROADMAP */
+.countdown{background:var(--gold-dim);border:1px solid var(--gold);border-radius:10px;padding:14px 20px;margin-bottom:24px;display:flex;align-items:center;gap:16px}
+.cd-num{font-size:36px;font-weight:700;color:var(--gold);line-height:1;flex-shrink:0}
+.cd-lbl{font-size:13px;color:var(--t1);font-weight:500}
+.cd-sub{font-size:11px;color:var(--t2)}
+.tl-ph{display:grid;grid-template-columns:160px 1fr;position:relative;margin-bottom:2px}
+.tl-left{padding:24px 20px 24px 0;position:relative;display:flex;flex-direction:column;align-items:flex-end;border-right:1px solid var(--border)}
+.tl-mk{width:13px;height:13px;border-radius:50%;border:2px solid;position:absolute;right:-7px;top:28px;background:var(--dark);z-index:1}
+.tl-num{font-size:28px;font-weight:700;line-height:1;color:transparent;-webkit-text-stroke:1px;margin-bottom:4px}
+.tl-per{font-size:10px;letter-spacing:.1em;text-transform:uppercase;text-align:right}
+.tl-urg{font-size:9px;padding:2px 8px;border-radius:20px;margin-top:6px;letter-spacing:.06em}
+.tl-right{padding:24px 0 24px 28px}
+.tl-ptitle{font-size:15px;font-weight:700;color:var(--t1);margin-bottom:12px;line-height:1.3}
+.tl-items{display:flex;flex-direction:column;gap:6px}
+.tl-item{display:flex;align-items:flex-start;gap:9px;background:var(--dark3);border-radius:8px;padding:9px 13px;border:1px solid var(--border)}
+.tl-item.urg{border-color:rgba(232,117,74,.4)}
+.tl-item.key{border-color:rgba(201,168,76,.35)}
+.tl-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;margin-top:5px}
+.tl-ititle{font-size:12px;font-weight:500;color:var(--t1);margin-bottom:1px}
+.tl-idesc{font-size:10px;color:var(--t2);line-height:1.45}
+/* AI */
+.ai-row{display:flex;flex-direction:column;gap:9px}
+.ai-item{display:flex;align-items:flex-start;gap:14px;background:var(--dark3);border-radius:10px;padding:14px 18px;border:1px solid var(--border)}
+.ai-num{font-size:18px;font-weight:700;color:transparent;-webkit-text-stroke:1px rgba(201,168,76,.4);flex-shrink:0;width:28px;line-height:1;padding-top:2px}
+.ai-title{font-size:13px;font-weight:700;color:var(--t1);margin-bottom:3px}
+.ai-desc{font-size:11px;color:var(--t2);line-height:1.5}
+/* FOOTER */
+.footer{padding:28px 48px;background:var(--dark2);border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.footer-brand{font-size:15px;font-weight:700;color:var(--gold);letter-spacing:.05em}
+.footer-note{font-size:11px;color:var(--t3)}
+/* RESPONSIVE */
+@media(max-width:640px){
+  .nav{padding:10px 16px}.nav-links{display:none}
+  .cover{padding:60px 20px 40px}
+  .s{padding:36px 20px}
+  .stat-row{grid-template-columns:1fr}
+  .pg-grid,.dept-mods,.three-grid,.will-row,.link-grid,.gantt-grid{grid-template-columns:1fr}
+  .dm-card.full,.dm-card.soon{grid-column:1}
+  .dual{grid-template-columns:1fr}.tr-center{display:none}
+  .code-grid{grid-template-columns:1fr 1fr}
+  .pm-mods{grid-template-columns:1fr}
+  .tl-ph{grid-template-columns:120px 1fr}
+  .footer{flex-direction:column;text-align:center}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-brand">JEC 2.0 · 營運整合</div>
+  <div class="nav-links">
+    <a class="nav-link" href="#s01">進度</a>
+    <a class="nav-link" href="#s02">流程</a>
+    <a class="nav-link" href="#s03">編碼</a>
+    <a class="nav-link" href="#s04">模組</a>
+    <a class="nav-link" href="#s05">工具</a>
+    <a class="nav-link" href="#s06">診斷</a>
+    <a class="nav-link" href="#s07">工進</a>
+    <a class="nav-link" href="#s08">路線</a>
+    <a class="nav-link" href="#s09">AI</a>
+  </div>
+  <div class="nav-badge">● 公司內部討論版</div>
+</nav>
+
+<div class="cover" id="cover">
+  <div class="internal-badge"><span class="internal-dot"></span>公司內部討論版 · 請勿對外流傳</div>
+  <div class="cover-eyebrow">JEC 2.0 · 營運整合企劃報告</div>
+  <div class="cover-title">讓系統真正<span>落地</span>，<br>讓資訊開始<span>流動</span>。</div>
+  <div class="cover-subline">商業空間室內設計 × Notion 數位整合 × 跨部門流程重建</div>
+  <div class="cover-div"></div>
+  <div class="cover-meta">
+    <div class="cm-item"><div class="cm-lbl">報告期間</div><div class="cm-val">2026年 6月</div></div>
+    <div class="cm-item"><div class="cm-lbl">提報對象</div><div class="cm-val">設計總監 · 專案經理</div></div>
+    <div class="cm-item"><div class="cm-lbl">系統進度</div><div class="cm-val">70% 完成 · 30% 建構中</div></div>
+    <div class="cm-item"><div class="cm-lbl">下一里程碑</div><div class="cm-val">七月一日 全員上線</div></div>
+  </div>
+  <div class="scroll-hint">向下捲動<span class="scroll-arr">↓</span></div>
+</div>
+
+<div class="s" id="s01">
+  <div class="lbl">01 · 整體進度</div>
+  <div class="ttl">我們現在在哪裡？</div>
+  <div class="sub">6月1日起正式進駐觀察，以下是17天的實際成果</div>
+  <div class="stat-row">
+    <div class="stat-cell"><div class="stat-num">17</div><div class="stat-unit">天</div><div class="stat-label">實際進駐觀察與測試</div></div>
+    <div class="stat-cell"><div class="stat-num">70<span style="font-size:20px">%</span></div><div class="stat-unit">完成</div><div class="stat-label">Notion 核心架構建置</div></div>
+    <div class="stat-cell"><div class="stat-num">3</div><div class="stat-unit">部門</div><div class="stat-label">完成訪談問卷診斷</div></div>
+  </div>
+  <div class="pg-grid">
+    <div class="pg-card"><div class="pg-lbl">基礎資料架構</div><div class="pg-bar-wrap"><div class="pg-bar" style="width:100%;background:var(--green)"></div></div><div class="pg-pct" style="color:var(--green)">100%</div><div class="pg-desc">客戶資料庫、廠商資料庫、公司公告、採購模組（廠商/付款主表/結案待請款/產品型錄庫等8個資料庫）完整建置</div></div>
+    <div class="pg-card"><div class="pg-lbl">專案流程 · 部門模組</div><div class="pg-bar-wrap"><div class="pg-bar" style="width:70%;background:var(--gold)"></div></div><div class="pg-pct" style="color:var(--gold)">70%</div><div class="pg-desc">專案立案、設計甘特圖框架已定義；工程甘特圖、跨部門連動通知機制建構中</div></div>
+    <div class="pg-card"><div class="pg-lbl">採購發包 · 催帳 · 驗收</div><div class="pg-bar-wrap"><div class="pg-bar" style="width:30%;background:var(--coral)"></div></div><div class="pg-pct" style="color:var(--coral)">30%</div><div class="pg-desc">框架已建立，進度催款/驗收結案有雛形，Notion 頁面待廠商完成建置，目標七月前完成</div></div>
+    <div class="pg-card"><div class="pg-lbl">跨部門連動 · 行事曆整合</div><div class="pg-bar-wrap"><div class="pg-bar" style="width:15%;background:var(--purple)"></div></div><div class="pg-pct" style="color:var(--purple)">規劃中</div><div class="pg-desc">採購→財務通知、工進表→行事曆回饋、外勤查詢介面，列為六月下旬優先項目</div></div>
+  </div>
+</div>
+
+<div class="s s-alt" id="s02">
+  <div class="lbl">02 · 專案生命週期架構</div>
+  <div class="ttl">從接洽到結案，全程可追蹤</div>
+  <div class="sub">以專案為核心的運作邏輯，每個階段資訊不斷點</div>
+  <div class="flow-wrap">
+    <div class="flow-row">
+      <div class="flow-ph"><div class="fp-lbl">業務開發</div><div class="fp-node a">客戶接洽<div class="fp-sub-txt">立即登入 Notion<br>自動客戶編碼</div></div><div class="fp-subs"><div class="fp-sub">商機追蹤</div><div class="fp-sub">提案報價</div><div class="fp-sub">★ 客戶合約簽訂</div></div></div>
+      <div class="flow-arr">›</div>
+      <div class="flow-ph"><div class="fp-lbl">專案啟動</div><div class="fp-node a">PM 立案<div class="fp-sub-txt">Notion 建案<br>連動採購+財務</div></div><div class="fp-subs"><div class="fp-sub">案件資訊彙整</div><div class="fp-sub">設計甘特圖</div><div class="fp-sub">任務分派通知</div></div></div>
+      <div class="flow-arr">›</div>
+      <div class="flow-ph"><div class="fp-lbl">設計階段</div><div class="fp-node a">設計執行<div class="fp-sub-txt">提案→施工圖<br>材料→客戶簽核</div></div><div class="fp-subs"><div class="fp-sub">概念提案 / 3D</div><div class="fp-sub">材料/色彩計畫</div><div class="fp-sub">版本控管存檔</div></div></div>
+      <div class="flow-arr">›</div>
+      <div class="flow-ph"><div class="fp-lbl">採購發包</div><div class="fp-node p">採購作業<div class="fp-sub-txt">詢價比價→發包<br>廠商合約管理</div></div><div class="fp-subs"><div class="fp-sub">成本控管</div><div class="fp-sub">付款主表追蹤</div><div class="fp-sub">外勤資料查詢</div></div></div>
+      <div class="flow-arr">›</div>
+      <div class="flow-ph"><div class="fp-lbl">工程執行</div><div class="fp-node p">現場工務<div class="fp-sub-txt">工進表連動<br>即時進度查詢</div></div><div class="fp-subs"><div class="fp-sub">工班協調</div><div class="fp-sub">品質安全管理</div><div class="fp-sub">進度儀表板</div></div></div>
+      <div class="flow-arr">›</div>
+      <div class="flow-ph"><div class="fp-lbl">驗收結案</div><div class="fp-node p">驗收/結案<div class="fp-sub-txt">缺失→修正<br>催款→歸檔</div></div><div class="fp-subs"><div class="fp-sub">客戶驗收簽核</div><div class="fp-sub">尾款催收</div><div class="fp-sub">售後保固管理</div></div></div>
+    </div>
+  </div>
+  <div class="flow-legend">
+    <div class="fl-item"><div class="fl-dot" style="background:var(--gold-dim);border:1px solid var(--gold)"></div>已建置運作中</div>
+    <div class="fl-item"><div class="fl-dot" style="background:rgba(232,117,74,.07);border:1px solid var(--coral)"></div>建構中（七月完成）</div>
+  </div>
+</div>
+
+<div class="s" id="s03">
+  <div class="lbl">03 · 資訊標準化</div>
+  <div class="ttl">客戶編碼系統 — 一客一碼，全案可追溯</div>
+  <div class="sub">符合 ISO 9001 規範，Notion 立案時自動生成，避免人為疏失</div>
+  <div class="code-demo">CN-001-2601 <span>→ 台中區第1位企業客戶 · 2026年第1個案件</span></div>
+  <div class="code-demo">CN-001-2602 <span>→ 同客戶 · 2026年第2個案件（客戶主碼永不改變）</span></div>
+  <div class="code-demo">CN-001-2601_V2 <span>→ 同案追加預算或範疇變更，追加版本號</span></div>
+  <div class="code-grid">
+    <div class="code-card"><div class="cc-lbl">第一碼 · 客戶屬性</div><div class="cc-val">C / D / V</div><div class="cc-desc">C企業 / D經銷商 / V專案客戶</div></div>
+    <div class="code-card"><div class="cc-lbl">第二碼 · 地區</div><div class="cc-val">N / C / S</div><div class="cc-desc">N北部 / C中部 / S南部</div></div>
+    <div class="code-card"><div class="cc-lbl">流水號 · 唯一識別</div><div class="cc-val">001—999</div><div class="cc-desc">三碼預留擴充，Notion 自動帶入</div></div>
+    <div class="code-card"><div class="cc-lbl">案件識別碼</div><div class="cc-val">YYNN</div><div class="cc-desc">年份後兩碼 + 當年度案件序號</div></div>
+    <div class="code-card"><div class="cc-lbl">版本控管</div><div class="cc-val">_V2 / _V3</div><div class="cc-desc">追加預算/範疇變更時追加</div></div>
+    <div class="code-card"><div class="cc-lbl">ISO 9001 原則</div><div class="cc-val">唯一性</div><div class="cc-desc">一客一碼 · 主碼永不更換 · 全案可追溯</div></div>
+  </div>
+  <div class="tag-row">
+    <span class="tag" style="border-color:var(--gold);color:var(--gold)">Notion 自動帶入</span>
+    <span class="tag" style="border-color:var(--teal);color:var(--teal)">Google Drive 對齊</span>
+    <span class="tag" style="border-color:var(--purple);color:var(--purple)">ISO 9001 合規</span>
+    <span class="tag" style="border-color:var(--green);color:var(--green)">全案可追溯</span>
+  </div>
+</div>
+
+<div class="s s-alt" id="s04">
+  <div class="lbl">04 · Notion 系統模組</div>
+  <div class="ttl">各部門看見自己需要的介面，不多也不少</div>
+  <div class="sub">公司部門：專案(PM) · 設計部 · 採購部 · 行政會計 · 軟裝設計部（即將建置）</div>
+  <div class="dept-mods">
+    <div class="dm-card full">
+      <div class="dm-hd"><div class="dm-icon" style="background:var(--gold-dim)">📋</div><div><div class="dm-title">專案管理（PM）</div><div class="dm-role">專案統籌 · 進度控管 · 預算整合 · 跨部門協調</div></div><div style="margin-left:auto"><div class="dm-status s-done">✓ 架構完成</div></div></div>
+      <div class="dm-body"><div class="pm-mods"><div class="pm-sub"><div class="pm-sub-t">CRM 客戶管理</div><div class="pm-si">客戶資料庫 · ISO 9001 自動編碼</div><div class="pm-si">業主聯絡人 · 公司抬頭管理</div><div class="pm-si">商機追蹤 · 提案報價紀錄</div><div class="pm-si">客戶合約（與廠商合約嚴格區分）</div></div><div class="pm-sub"><div class="pm-sub-t">專案立案 · 甘特圖</div><div class="pm-si">立案欄位：名稱/地址/進場完工日/施工申請</div><div class="pm-si">新案自動通知採購與行政會計</div><div class="pm-si">設計甘特圖（內部版 + 客戶版）</div><div class="pm-si">工程甘特圖（內部版 + 客戶版）</div></div></div></div>
+    </div>
+    <div class="dm-card">
+      <div class="dm-hd"><div class="dm-icon" style="background:rgba(78,205,196,.1)">✏️</div><div><div class="dm-title">設計部</div><div class="dm-role">空間設計 · 圖面執行</div></div></div>
+      <div class="dm-body">
+        <div class="dm-item"><div class="dm-dot" style="background:var(--teal)"></div><div><div class="dm-ititle">設計進度看板</div><div class="dm-idesc">提案/施工圖/材料確認/客戶簽核各階段狀態</div></div></div>
+        <div class="dm-item"><div class="dm-dot" style="background:var(--teal)"></div><div><div class="dm-ititle">業主確認紀錄</div><div class="dm-idesc">確認項目在系統留存，取代 LINE 截圖，不再被重複詢問</div></div></div>
+        <div class="dm-item"><div class="dm-dot" style="background:var(--teal)"></div><div><div class="dm-ititle">材料 · 色彩計畫</div><div class="dm-idesc">樣品核對/品規確認/版本控管，連動採購發包</div></div></div>
+        <div class="dm-item"><div class="dm-dot" style="background:var(--teal)"></div><div><div class="dm-ititle">客戶共享頁面</div><div class="dm-idesc">設計里程碑可視化，業主自助查詢，確認後解鎖</div></div></div>
+        <div class="dm-status s-done">✓ 架構完成</div>
+      </div>
+    </div>
+    <div class="dm-card">
+      <div class="dm-hd"><div class="dm-icon" style="background:rgba(201,168,76,.1)">🛒</div><div><div class="dm-title">採購部</div><div class="dm-role">發包 · 材料 · 成本管理</div></div></div>
+      <div class="dm-body">
+        <div class="dm-item"><div class="dm-dot" style="background:var(--gold)"></div><div><div class="dm-ititle">廠商資料庫</div><div class="dm-idesc">廠商·工種·評級·統編·聯絡人，採購主導維護</div></div></div>
+        <div class="dm-item"><div class="dm-dot" style="background:var(--gold)"></div><div><div class="dm-ititle">付款主表 · 結案待請款</div><div class="dm-idesc">自動擷取廠商請款單，追蹤撥款日/請款日/待確認</div></div></div>
+        <div class="dm-item"><div class="dm-dot" style="background:var(--gold)"></div><div><div class="dm-ititle">產品型錄庫</div><div class="dm-idesc">型錄連結 Google Drive，按類別瀏覽，設計/採購共用</div></div></div>
+        <div class="dm-item"><div class="dm-dot" style="background:var(--coral)"></div><div><div class="dm-ititle">外勤查詢介面</div><div class="dm-idesc">現場/PM/總監可查詢廠商聯繫/發包圖/當案材質規劃</div></div></div>
+        <div class="dm-status s-wip">建構中</div>
+      </div>
+    </div>
+    <div class="dm-card">
+      <div class="dm-hd"><div class="dm-icon" style="background:rgba(155,127,212,.1)">💼</div><div><div class="dm-title">行政會計部門</div><div class="dm-role">帳務 · 行政 · 合約 · 請款追蹤</div></div></div>
+      <div class="dm-body">
+        <div class="dm-item"><div class="dm-dot" style="background:var(--purple)"></div><div><div class="dm-ititle">請款進度追蹤</div><div class="dm-idesc">工程達付款節點→自動通知，取代 Excel 人工追蹤</div></div></div>
+        <div class="dm-item"><div class="dm-dot" style="background:var(--purple)"></div><div><div class="dm-ititle">合約文件管理</div><div class="dm-idesc">客戶/廠商合約嚴格區分，版本控管，附件上傳</div></div></div>
+        <div class="dm-item"><div class="dm-dot" style="background:var(--purple)"></div><div><div class="dm-ititle">結案客戶追蹤</div><div class="dm-idesc">尾款催收·驗收簽核·保固期追蹤，行政會計主責</div></div></div>
+        <div class="dm-item"><div class="dm-dot" style="background:var(--coral)"></div><div><div class="dm-ititle">新案自動通知</div><div class="dm-idesc">PM 立案後自動推送，即時知道有新案件需處理</div></div></div>
+        <div class="dm-status s-wip">建構中</div>
+      </div>
+    </div>
+    <div class="dm-card soon">
+      <div class="dm-hd"><div class="dm-icon" style="background:rgba(107,107,107,.12)">🪴</div><div><div class="dm-title" style="color:var(--t2)">軟裝設計部</div><div class="dm-role">軟裝規劃 · 風格配置 · 現場佈置</div></div><div style="margin-left:auto"><div class="dm-status s-soon">即將建置</div></div></div>
+      <div class="dm-body"><div style="font-size:11px;color:var(--t3);line-height:1.7">家具/燈具/細節配置 · 材料挑選與色彩計畫 · 樣品核對 · 採購與現場佈置追蹤。待工程模組穩定後規劃導入。</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="s" id="s05">
+  <div class="lbl">05 · 工具策略</div>
+  <div class="ttl">雙軌並行 — 降低轉移阻力，穩步建立共同語言</div>
+  <div class="sub">不強制轉移，讓系統的便利性自然吸引使用意願</div>
+  <div class="dual">
+    <div class="tr-box"><div class="tr-title">Google 生態系 <span class="tr-badge" style="background:rgba(78,205,196,.15);color:var(--teal)">現有習慣</span></div><div class="tr-item">日常文件儲存 · 檔案共享</div><div class="tr-item">設計圖 · 施工圖版本管理</div><div class="tr-item">產品型錄庫連結（Drive）</div><div class="tr-item">外部協作人員分享</div><div class="tr-item">現有操作習慣完整延續</div></div>
+    <div class="tr-center">⇄</div>
+    <div class="tr-box"><div class="tr-title">Notion 控制台 <span class="tr-badge" style="background:var(--gold-dim);color:var(--gold)">整合核心</span></div><div class="tr-item">CRM · 專案追蹤 · 工進看板</div><div class="tr-item">採購管理 · 付款追蹤</div><div class="tr-item">甘特圖排程（設計 + 工程）</div><div class="tr-item">跨部門連動通知</div><div class="tr-item">管理層即時監控視圖</div></div>
+  </div>
+  <div style="background:var(--dark3);border-radius:10px;padding:14px 18px;border:1px solid var(--border)"><div style="font-size:11px;color:var(--t3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:5px">策略原則</div><div style="font-size:13px;color:var(--t1);line-height:1.7">用大家<strong style="color:var(--gold)">習慣的工具繼續工作</strong>，同時讓 Notion 成為資訊匯流的控制台。設計部、採購、行政以各自習慣的節奏進入系統，不設強制門檻。</div></div>
+</div>
+
+<div class="s s-alt" id="s06">
+  <div class="lbl">06 · 部門訪談診斷</div>
+  <div class="ttl">三部門問卷回饋，找到真正卡住的地方</div>
+  <div class="sub">設計部 · 採購部 · 行政會計 — 痛點確認，整合方向明確</div>
+  <div class="three-grid">
+    <div class="dc"><div class="dc-hd"><div class="dc-dot" style="background:var(--teal)"></div><div><div class="dc-name">設計部</div><div class="dc-role">空間設計 / 圖面執行</div></div></div><div class="dc-body"><div class="qa-q">案件進度如何記錄？</div><div class="qa-a warn">LINE 群組或私訊</div><div class="qa-q">業主確認紀錄如何保存？</div><div class="qa-a warn">截圖或儲存 LINE 對話</div><div class="qa-q">最大痛點</div><div class="qa-a">重複被問到同樣的問題</div><div class="qa-q">對新工具的態度</div><div class="qa-a pos">只要能省時間，願意學</div><div class="qa-q">介面需求</div><div class="qa-a hl">「專案全部資料、需求、現況」集中一處</div></div></div>
+    <div class="dc"><div class="dc-hd"><div class="dc-dot" style="background:var(--gold)"></div><div><div class="dc-name">採購部</div><div class="dc-role">發包 / 材料 / 成本管理</div></div></div><div class="dc-body"><div class="qa-q">廠商報價資料存在哪裡？</div><div class="qa-a">公司共用雲端硬碟</div><div class="qa-q">其他部門查資料的方式？</div><div class="qa-a warn">沒有固定流程，看情況</div><div class="qa-q">對整合的態度</div><div class="qa-a hl">OK，但資料維護由採購主導</div><div class="qa-q">最大痛點</div><div class="qa-a">採購需求不夠清楚，要一直補確認</div><div class="qa-q">整合意願</div><div class="qa-a">想先看整合後的樣子再決定</div></div></div>
+    <div class="dc"><div class="dc-hd"><div class="dc-dot" style="background:var(--purple)"></div><div><div class="dc-name">行政會計</div><div class="dc-role">帳務 / 行政 / 請款追蹤</div></div></div><div class="dc-body"><div class="qa-q">最大痛點</div><div class="qa-a warn">不確定案件進度是否達請款條件 · 文件不齊被退回</div><div class="qa-q">請款狀態追蹤方式</div><div class="qa-a">自己的 Excel 表格（無系統串聯）</div><div class="qa-q">對新工具的態度</div><div class="qa-a pos">有人教就配合，操作要直覺</div><div class="qa-q">集中查詢系統</div><div class="qa-a">需要看到實際效益才會換</div></div></div>
+  </div>
+  <div class="will-row">
+    <div class="will-card"><div class="will-dept">設計部</div><div class="will-score" style="color:var(--teal)">高</div><div class="will-bar-wrap"><div class="will-bar" style="width:90%;background:var(--teal)"></div></div><div class="will-lbl">主動學習意願強<br>需要集中資訊介面<br>業主確認需搬離 LINE</div></div>
+    <div class="will-card"><div class="will-dept">採購部</div><div class="will-score" style="color:var(--gold)">中</div><div class="will-bar-wrap"><div class="will-bar" style="width:55%;background:var(--gold)"></div></div><div class="will-lbl">需保有資料主導權<br>整合以現有模組為基礎<br>先看到成果再決定</div></div>
+    <div class="will-card"><div class="will-dept">行政會計</div><div class="will-score" style="color:var(--purple)">中</div><div class="will-bar-wrap"><div class="will-bar" style="width:55%;background:var(--purple)"></div></div><div class="will-lbl">有人教就願意配合<br>操作必須直覺簡單<br>需感受到明顯效益</div></div>
+  </div>
+  <div class="link-grid">
+    <div class="link-card"><div class="link-dept">設計部 · 解法方向</div><div class="link-q">業主確認動作應在系統上完成，而不是在 LINE。</div><div class="link-a">Notion 客戶共享頁面建立確認紀錄機制，所有版本變更留存可追溯，設計師不再被重複詢問</div></div>
+    <div class="link-card"><div class="link-dept">採購 × 財務 · 解法方向</div><div class="link-q">採購有發包記錄，財務不知道能不能請款——兩端資訊互不相通。</div><div class="link-a">透過「案場名稱」串聯採購付款主表與財務請款追蹤，工程達節點自動通知，減少人工確認</div></div>
+  </div>
+</div>
+
+<div class="s" id="s07">
+  <div class="lbl">07 · 工程進度管理</div>
+  <div class="ttl">工進表範本 — 立案即生成，現場可即時更新</div>
+  <div class="sub">依據實際工程進度表建立標準範本，PM 立案後自動帶入，現場人員勾選調整</div>
+  <div class="gantt-grid">
+    <div class="g-box"><div class="g-lbl">標準工項（23項 · 可勾選啟停）</div><div class="g-item"><span class="g-check">✓</span>開工前備料 / 進場協調溝通</div><div class="g-item"><span class="g-check">✓</span>吉時開工 / 保護及拆除工程</div><div class="g-item"><span class="g-check">✓</span>隔間定點放樣 / 進場 / 單面封板</div><div class="g-item"><span class="g-check">✓</span>機電 / 空調 / 消防 / 弱電影音配管配線</div><div class="g-item"><span class="g-check">✓</span>木作 / 油漆（含批土）/ 壁紙工程</div><div class="g-item"><span class="g-check">✓</span>各工種收尾安裝面板</div><div class="g-item"><span class="g-check">✓</span>裝飾工程（玻璃/地毯/PVC/貼紙）</div><div class="g-item"><span class="g-check">✓</span>完工清潔 / 新家具設備進場 / 驗收啟用</div></div>
+    <div class="g-box"><div class="g-lbl">甘特圖 — 兩階段四版本</div><div class="g-sub"><div class="g-sub-t" style="color:var(--gold)">規劃設計甘特圖</div><div class="g-sub-d">內部版：設計進度 · 材料確認 · 部門協作節點<br>客戶版：精簡里程碑 · 提案節點 · 簽核時程</div></div><div class="g-sub" style="margin-top:8px"><div class="g-sub-t" style="color:var(--coral)">施工工程甘特圖</div><div class="g-sub-d">內部版：工班進場 · 廠商資訊 · 發包圖 · 連動行事曆<br>客戶版：進場日期 · 關鍵工項 · 完工預估</div></div></div>
+  </div>
+  <div style="background:var(--dark3);border-radius:10px;padding:16px 18px;border:1px solid var(--border);display:flex;align-items:flex-start;gap:14px"><div style="font-size:18px;flex-shrink:0">📍</div><div><div style="font-size:13px;font-weight:700;color:var(--t1);margin-bottom:4px">外勤人員查詢整合</div><div style="font-size:11px;color:var(--t2);line-height:1.6">工程甘特圖（內部版）連動現場人員 · PM · 總監介面，外勤可直接查詢：當案客戶報價 / 廠商聯繫方式 / 發包圖 / 當案材質規劃圖片，評估連動 Notion 或 Google 行事曆。</div></div></div>
+</div>
+
+<div class="s s-alt" id="s08">
+  <div class="lbl">08 · 推進路線</div>
+  <div class="ttl">七月全員上線 — 還剩半個月</div>
+  <div class="sub">目標明確，優先順序清晰，每一週都有具體里程碑</div>
+  <div class="countdown"><div class="cd-num">15</div><div><div class="cd-lbl">距離七月全員上線，剩餘天數</div><div class="cd-sub">2026年6月17日 → 7月1日 · 每一天都是關鍵執行期</div></div></div>
+  <div>
+    <div class="tl-ph"><div class="tl-left"><div class="tl-mk" style="border-color:var(--coral);background:var(--coral)"></div><div class="tl-num" style="-webkit-text-stroke-color:var(--coral)">01</div><div class="tl-per" style="color:var(--coral)">6/17—6/24<br>廠商會議前</div><div class="tl-urg" style="background:rgba(232,117,74,.15);color:var(--coral)">緊急執行</div></div><div class="tl-right"><div class="tl-ptitle">完成 30% 建構<br>確認驗收標準</div><div class="tl-items"><div class="tl-item urg"><div class="tl-dot" style="background:var(--coral)"></div><div><div class="tl-ititle">呼嚕會議 — 要求提供30/60/90%驗收標準</div><div class="tl-idesc">確認七月上線節點，不允許繼續延宕</div></div></div><div class="tl-item urg"><div class="tl-dot" style="background:var(--coral)"></div><div><div class="tl-ititle">工進表範本：立案自動帶入23項工項</div><div class="tl-idesc">依案件規模可勾選啟停，現場人員只需微調</div></div></div><div class="tl-item urg"><div class="tl-dot" style="background:var(--coral)"></div><div><div class="tl-ititle">客戶合約 / 廠商合約資料庫嚴格區分</div><div class="tl-idesc">高優先級風險管控，避免合約錯誤造成損失</div></div></div><div class="tl-item"><div class="tl-dot" style="background:var(--gold)"></div><div><div class="tl-ititle">採購部介面：確認廠商資料搬遷計畫</div><div class="tl-idesc">以採購現有模組為基礎，確認欄位對齊</div></div></div><div class="tl-item"><div class="tl-dot" style="background:var(--gold)"></div><div><div class="tl-ititle">採購 × 財務請款節點自動通知機制</div><div class="tl-idesc">工程進度達標→自動推送行政會計</div></div></div></div></div></div>
+    <div class="tl-ph" style="margin-top:2px"><div class="tl-left"><div class="tl-mk" style="border-color:var(--gold)"></div><div class="tl-num" style="-webkit-text-stroke-color:var(--gold)">02</div><div class="tl-per" style="color:var(--gold)">6/25—6/30<br>上線前衝刺</div><div class="tl-urg" style="background:var(--gold-dim);color:var(--gold)">集中優化</div></div><div class="tl-right"><div class="tl-ptitle">系統完整測試<br>準備全員上線</div><div class="tl-items"><div class="tl-item key"><div class="tl-dot" style="background:var(--gold)"></div><div><div class="tl-ititle">以現有進行中案件完整跑一次全流程</div><div class="tl-idesc">確認每個銜接節點無斷點，記錄問題提交廠商</div></div></div><div class="tl-item key"><div class="tl-dot" style="background:var(--gold)"></div><div><div class="tl-ititle">管理層 Board 看板上線，三秒審批設計</div><div class="tl-idesc">圖形化資訊 · 下拉審批 · 自動通知</div></div></div><div class="tl-item"><div class="tl-dot" style="background:var(--teal)"></div><div><div class="tl-ititle">各部門操作說明文件完成</div><div class="tl-idesc">簡化版 SOP，搭配截圖說明，降低學習門檻</div></div></div><div class="tl-item"><div class="tl-dot" style="background:var(--teal)"></div><div><div class="tl-ititle">公告區 · 新人教育訓練區建置</div><div class="tl-idesc">含遠端辦公人員，確保非同步工作快速上手</div></div></div></div></div></div>
+    <div class="tl-ph" style="margin-top:2px"><div class="tl-left"><div class="tl-mk" style="border-color:var(--green)"></div><div class="tl-num" style="-webkit-text-stroke-color:var(--green)">03</div><div class="tl-per" style="color:var(--green)">7/1 起<br>全員上線</div><div class="tl-urg" style="background:rgba(107,191,122,.12);color:var(--green)">系統運行</div></div><div class="tl-right"><div class="tl-ptitle">七月全員上線<br>系統自主運行</div><div class="tl-items"><div class="tl-item"><div class="tl-dot" style="background:var(--green)"></div><div><div class="tl-ititle">各部門線上教育訓練（含遠端人員）</div><div class="tl-idesc">設計/採購/行政會計分別說明各自介面</div></div></div><div class="tl-item"><div class="tl-dot" style="background:var(--green)"></div><div><div class="tl-ititle">系統維護責任明確，公司主導更新</div><div class="tl-idesc">各部門欄位由各部門自行維護，不依賴廠商</div></div></div><div class="tl-item"><div class="tl-dot" style="background:var(--green)"></div><div><div class="tl-ititle">採購廠商資料正式搬遷至 Notion</div><div class="tl-idesc">外勤人員可透過 Notion 即時查詢廠商與工進</div></div></div><div class="tl-item"><div class="tl-dot" style="background:var(--t3)"></div><div><div class="tl-ititle">七月後：評估 LINE Bot 查詢整合</div><div class="tl-idesc">系統穩定後，啟動下一層 AI 輔助功能規劃</div></div></div></div></div></div>
+  </div>
+</div>
+
+<div class="s" id="s09">
+  <div class="lbl">09 · 後續可導入 AI 輔助的建議</div>
+  <div class="ttl">系統穩定後，下一層的效率提升</div>
+  <div class="sub">以下建議均在 Notion 系統穩定、團隊建立使用習慣後，逐步評估導入</div>
+  <div class="ai-row">
+    <div class="ai-item"><div class="ai-num">01</div><div><div class="ai-title">RACI 智慧任務分派</div><div class="ai-desc">案件立案後，AI 依案件類型自動建議權責分工，並對指定人員發送任務提醒，減少人工配置時間</div></div></div>
+    <div class="ai-item"><div class="ai-num">02</div><div><div class="ai-title">工作日誌自動生成</div><div class="ai-desc">結合每日待辦與進度回報，AI 輔助生成工作日誌與週報，提升跨部門資訊透明度，降低回報負擔</div></div></div>
+    <div class="ai-item"><div class="ai-num">03</div><div><div class="ai-title">LINE Bot 智慧查詢</div><div class="ai-desc">整合 Notion 資料庫，讓管理層與外勤人員透過 LINE 即時查詢合約、廠商資訊、工進狀態</div></div></div>
+    <div class="ai-item"><div class="ai-num">04</div><div><div class="ai-title">編碼小幫手優化</div><div class="ai-desc">導入 AI 自動識別並建議正確客戶碼，避免重複建檔與命名混亂，與呼嚕現有版本整合優化</div></div></div>
+  </div>
+  <div style="margin-top:12px;background:var(--dark3);border-radius:10px;padding:14px 18px;border:1px solid rgba(155,127,212,.25);font-size:11px;color:var(--t2);line-height:1.7">工具測試將以免費版優先進行。若涉及付費項目，正式訂閱前皆會提前請示確認，並提供評估說明。</div>
+</div>
+
+<div class="footer">
+  <div class="footer-brand">JEC 2.0 · 營運整合企劃</div>
+  <div class="footer-note">讓設計落地，讓空間說話，讓品牌發光。</div>
+  <div class="footer-note">2026年6月 · 公司內部討論版 · 機密文件</div>
+</div>
+
+</body>
+</html>
