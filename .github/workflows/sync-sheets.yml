@@ -1,0 +1,89 @@
+name: Sync Google Sheets to data.json
+
+on:
+  schedule:
+    - cron: '*/30 * * * *'  # 每30分鐘執行一次
+  workflow_dispatch:          # 也可以手動觸發
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Fetch Sheets data and build data.json
+        run: |
+          SHEET_ID="1v4Z82N7jCeOCuFlT_5frsUTYu071Ycud1lC7U772r_E"
+          
+          # 抓案件清單
+          curl -s "https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=%E6%A1%88%E4%BB%B6%E6%B8%85%E5%96%AE&headers=1" -o projects_raw.csv
+          
+          # 抓類別清單
+          curl -s "https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=%E9%A1%9E%E5%88%A5%E6%B8%85%E5%96%AE&headers=1" -o categories_raw.csv
+          
+          # 用Python轉成JSON
+          python3 << 'PYEOF'
+          import csv, json, io
+
+          def parse_csv(filename):
+              with open(filename, 'r', encoding='utf-8') as f:
+                  content = f.read()
+              reader = csv.reader(io.StringIO(content))
+              rows = list(reader)
+              return rows[1:] if len(rows) > 1 else []
+
+          # 解析案件
+          proj_rows = parse_csv('projects_raw.csv')
+          projects = []
+          for r in proj_rows:
+              if len(r) >= 2 and r[0].strip():
+                  status = r[2].strip() if len(r) > 2 else '進行中'
+                  if status != '結案':
+                      projects.append({
+                          'code': r[0].strip(),
+                          'name': r[1].strip(),
+                          'status': status
+                      })
+
+          # 解析類別
+          cat_rows = parse_csv('categories_raw.csv')
+          category_map = {}
+          for r in cat_rows:
+              if len(r) >= 4 and r[0].strip() and r[2].strip():
+                  main_code = r[0].strip()
+                  main_name = r[1].strip()
+                  sub_code = r[2].strip()
+                  sub_name = r[3].strip()
+                  desc = r[4].strip() if len(r) > 4 else ''
+                  if main_code not in category_map:
+                      category_map[main_code] = {'label': main_name, 'subs': []}
+                  category_map[main_code]['subs'].append({
+                      'code': sub_code,
+                      'label': sub_name,
+                      'desc': desc
+                  })
+
+          data = {
+              'projects': projects,
+              'categoryMap': category_map,
+              'updatedAt': '$(date -u +%Y-%m-%dT%H:%M:%SZ)'
+          }
+
+          with open('data.json', 'w', encoding='utf-8') as f:
+              json.dump(data, f, ensure_ascii=False, indent=2)
+
+          print(f"✓ 完成：{len(projects)} 個案件，{len(category_map)} 個大類")
+          PYEOF
+
+      - name: Commit and push if changed
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add data.json
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Auto sync: update data.json from Google Sheets"
+            git push
+          fi
