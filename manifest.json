@@ -1,0 +1,33 @@
+{
+  "name": "JEC 檔案編碼小工具",
+  "short_name": "JEC編碼",
+  "description": "JEC Interior Design 標準檔案命名工具",
+  "start_url": "/jec-encoding/",
+  "display": "standalone",
+  "background_color": "#0f0f0f",
+  "theme_color": "#c9a84c",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "share_target": {
+    "action": "/jec-encoding/",
+    "method": "GET",
+    "params": {
+      "title": "title",
+      "text": "text",
+      "url": "url"
+    }
+  }
+}

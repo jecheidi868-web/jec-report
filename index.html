@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#c9a84c">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="JEC編碼">
+<link rel="manifest" href="manifest.json">
+<title>JEC 檔案編碼小工具</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    background: #0f0f0f; color: #f0f0f0;
+    min-height: 100vh; display: flex;
+    flex-direction: column; align-items: center;
+    padding: 24px 16px 80px;
+  }
+  header {
+    width: 100%; max-width: 480px;
+    display: flex; align-items: center;
+    gap: 12px; margin-bottom: 28px;
+  }
+  .logo-mark {
+    width: 36px; height: 36px; background: #c9a84c;
+    border-radius: 6px; display: flex; align-items: center;
+    justify-content: center; font-size: 16px; font-weight: 800;
+    color: #0f0f0f; letter-spacing: -1px;
+  }
+  .header-text h1 { font-size: 15px; font-weight: 700; letter-spacing: 0.5px; }
+  .header-text p { font-size: 11px; color: #666; margin-top: 1px; }
+
+  /* 載入狀態 */
+  .loading-bar {
+    width: 100%; max-width: 480px;
+    background: #1a2a1a; border: 1px solid #2a4a2a;
+    border-radius: 10px; padding: 14px 16px;
+    margin-bottom: 12px; display: flex;
+    align-items: center; gap: 10px;
+  }
+  .loading-bar.hidden { display: none; }
+  .spinner {
+    width: 16px; height: 16px;
+    border: 2px solid #2a4a2a;
+    border-top-color: #7ec86e;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    flex-shrink: 0;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .loading-bar p { font-size: 12px; color: #7ec86e; }
+
+  .sync-info {
+    width: 100%; max-width: 480px;
+    font-size: 10px; color: #444;
+    text-align: right; margin-bottom: 8px;
+    display: none;
+  }
+  .sync-info.visible { display: block; }
+  .sync-dot { color: #5a8a4a; }
+
+  .card {
+    width: 100%; max-width: 480px; background: #1a1a1a;
+    border: 1px solid #2a2a2a; border-radius: 12px;
+    padding: 20px; margin-bottom: 12px;
+  }
+  .card-title {
+    font-size: 11px; font-weight: 600; color: #c9a84c;
+    letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 14px;
+  }
+  .field-group { margin-bottom: 16px; }
+  .field-group:last-child { margin-bottom: 0; }
+  label { display: block; font-size: 12px; color: #888; margin-bottom: 6px; font-weight: 500; }
+
+  select, input[type="text"], input[type="date"] {
+    width: 100%; background: #111; border: 1px solid #333;
+    border-radius: 8px; color: #f0f0f0; font-size: 14px;
+    padding: 10px 12px; appearance: none; outline: none;
+    transition: border-color 0.2s;
+  }
+  select:focus, input:focus { border-color: #c9a84c; }
+  select option { background: #1a1a1a; }
+  select:disabled { opacity: 0.4; }
+
+  .sub-category-block {
+    display: none; margin-top: -8px; margin-bottom: 0;
+    background: #111; border: 1px solid #2a3a2a;
+    border-radius: 8px; padding: 10px 12px;
+  }
+  .sub-category-block.visible { display: block; }
+  .sub-label {
+    font-size: 10px; color: #5a8a4a; letter-spacing: 1px;
+    text-transform: uppercase; margin-bottom: 8px; font-weight: 600;
+  }
+  .sub-btn {
+    display: block; width: 100%; text-align: left;
+    background: transparent; border: 1px solid #2a3a2a;
+    border-radius: 6px; color: #aaa; font-size: 12px;
+    padding: 8px 10px; margin-bottom: 6px; cursor: pointer;
+    transition: all 0.15s; line-height: 1.4;
+  }
+  .sub-btn:last-child { margin-bottom: 0; }
+  .sub-btn:hover { border-color: #c9a84c; color: #f0f0f0; }
+  .sub-btn.selected { background: #1a3a1a; border-color: #5a8a4a; color: #7ec86e; }
+  .sub-btn .sub-code { font-family: 'Courier New', monospace; color: #c9a84c; font-size: 11px; }
+  .sub-btn .sub-desc { color: #555; font-size: 10px; margin-top: 2px; }
+
+  .result-card {
+    width: 100%; max-width: 480px; background: #111d0f;
+    border: 1px solid #2a3a2a; border-radius: 12px;
+    padding: 20px; margin-bottom: 12px; display: none;
+  }
+  .result-card.visible { display: block; }
+  .result-label { font-size: 11px; color: #5a8a4a; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 10px; font-weight: 600; }
+  .filename-display {
+    background: #0a0a0a; border: 1px solid #2a3a2a;
+    border-radius: 8px; padding: 12px 14px;
+    font-size: 13px; font-family: 'Courier New', monospace;
+    color: #7ec86e; word-break: break-all; line-height: 1.5; margin-bottom: 12px;
+  }
+  .folder-path {
+    font-size: 11px; color: #555; font-family: 'Courier New', monospace;
+    margin-bottom: 16px; line-height: 1.8;
+  }
+  .folder-path span { color: #c9a84c; }
+
+  .btn-row { display: flex; gap: 8px; flex-wrap: wrap; }
+  .btn {
+    flex: 1; padding: 11px; border-radius: 8px;
+    font-size: 13px; font-weight: 600; border: none;
+    cursor: pointer; transition: opacity 0.2s; min-width: 80px;
+  }
+  .btn:active { opacity: 0.75; }
+  .btn-secondary { background: #2a2a2a; color: #f0f0f0; border: 1px solid #3a3a3a; }
+  .btn-copy { background: #1a3a1a; color: #7ec86e; border: 1px solid #2a4a2a; }
+  .btn-share { background: #1a2a3a; color: #6eaec8; border: 1px solid #2a3a4a; }
+
+  .generate-btn {
+    width: 100%; max-width: 480px; padding: 14px;
+    background: #c9a84c; color: #0f0f0f; border: none;
+    border-radius: 10px; font-size: 15px; font-weight: 700;
+    cursor: pointer; margin-bottom: 12px; transition: opacity 0.2s;
+  }
+  .generate-btn:active { opacity: 0.8; }
+  .generate-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+  .install-banner {
+    width: 100%; max-width: 480px; background: #1a2a1a;
+    border: 1px solid #2a4a2a; border-radius: 10px;
+    padding: 12px 16px; margin-bottom: 12px;
+    display: none; align-items: center; gap: 12px;
+  }
+  .install-banner.visible { display: flex; }
+  .install-banner p { font-size: 12px; color: #7ec86e; flex: 1; line-height: 1.4; }
+  .install-btn {
+    background: #c9a84c; color: #0f0f0f; border: none;
+    border-radius: 6px; padding: 8px 14px; font-size: 12px;
+    font-weight: 700; cursor: pointer; white-space: nowrap;
+  }
+
+  .refresh-btn {
+    width: 100%; max-width: 480px;
+    background: transparent; border: 1px solid #2a2a2a;
+    border-radius: 8px; color: #555; font-size: 12px;
+    padding: 10px; cursor: pointer; margin-bottom: 12px;
+    transition: all 0.2s;
+  }
+  .refresh-btn:hover { border-color: #c9a84c; color: #c9a84c; }
+
+  .toast {
+    position: fixed; bottom: 24px; left: 50%;
+    transform: translateX(-50%); background: #c9a84c; color: #0f0f0f;
+    padding: 10px 20px; border-radius: 20px; font-size: 13px;
+    font-weight: 600; opacity: 0; transition: opacity 0.3s;
+    pointer-events: none; white-space: nowrap; z-index: 999;
+  }
+  .toast.show { opacity: 1; }
+  .version-note { font-size: 10px; color: #444; text-align: center; margin-top: 8px; }
+</style>
+</head>
+<body>
+
+<div class="install-banner" id="installBanner">
+  <p>安裝到手機桌面，隨時快速開啟</p>
+  <button class="install-btn" id="installBtn">安裝</button>
+</div>
+
+<header>
+  <div class="logo-mark">JEC</div>
+  <div class="header-text">
+    <h1>檔案編碼小工具</h1>
+    <p>統一命名 · 雲端同步 · 一鍵分享</p>
+  </div>
+</header>
+
+<!-- 載入狀態 -->
+<div class="loading-bar" id="loadingBar">
+  <div class="spinner"></div>
+  <p>從雲端讀取編碼規則中…</p>
+</div>
+
+<div class="sync-info" id="syncInfo">
+  <span class="sync-dot">●</span> 規則已同步
+</div>
+
+<div class="card">
+  <div class="card-title">Step 1 · 選擇案件</div>
+  <div class="field-group">
+    <label>案件</label>
+    <select id="projectSelect" onchange="onProjectChange()">
+      <option value="">載入中…</option>
+    </select>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-title">Step 2 · 選擇分類</div>
+  <div class="field-group">
+    <label>大類</label>
+    <select id="mainCategorySelect" onchange="onMainCategoryChange()">
+      <option value="">— 選擇大類 —</option>
+    </select>
+  </div>
+  <div class="sub-category-block" id="subBlock">
+    <div class="sub-label">選擇細項</div>
+    <div id="subList"></div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-title">Step 3 · 檔案設定</div>
+  <div class="field-group">
+    <label>日期（預設今日）</label>
+    <input type="date" id="dateInput">
+  </div>
+  <div class="field-group">
+    <label>版本號（選填，例如 v2）</label>
+    <input type="text" id="versionInput" placeholder="留空則不加版本號">
+  </div>
+  <div class="field-group">
+    <label>副檔名</label>
+    <select id="extSelect">
+      <option value=".pdf">PDF</option>
+      <option value=".jpg">JPG</option>
+      <option value=".png">PNG</option>
+      <option value=".dwg">DWG</option>
+      <option value=".xlsx">XLSX</option>
+      <option value=".docx">DOCX</option>
+    </select>
+  </div>
+</div>
+
+<button class="generate-btn" id="generateBtn" onclick="generate()">產生標準檔名</button>
+
+<div class="result-card" id="resultCard">
+  <div class="result-label">✓ 標準檔名產生完成</div>
+  <div class="filename-display" id="filenameDisplay"></div>
+  <div class="folder-path" id="folderPath"></div>
+  <div class="btn-row">
+    <button class="btn btn-copy" onclick="copyFilename()">複製檔名</button>
+    <button class="btn btn-share" onclick="shareFilename()">分享</button>
+    <button class="btn btn-secondary" onclick="reset()">重設</button>
+  </div>
+</div>
+
+<button class="refresh-btn" onclick="loadFromSheets()">↻ 重新同步雲端規則</button>
+
+<p class="version-note">v3.0 · JEC Interior Design · 2026 · 雲端中控版</p>
+<div class="toast" id="toast"></div>
+
+<script>
+// Google Sheets設定
+const SHEET_ID = '1v4Z82N7jCeOCuFlT_5frsUTYu071Ycud1lC7U772r_E';
+const SHEET_PROJECTS = '案件清單';
+const SHEET_CATEGORIES = '類別清單';
+const CACHE_KEY = 'jec_cloud_data';
+const CACHE_TIME_KEY = 'jec_cloud_time';
+const CACHE_DURATION = 30 * 60 * 1000; // 30分鐘快取
+
+let projects = [];
+let categoryMap = {};
+let selectedSub = null;
+let prefix = 'JEC';
+
+// PWA安裝
+let deferredPrompt;
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault(); deferredPrompt = e;
+  document.getElementById('installBanner').classList.add('visible');
+});
+document.getElementById('installBtn').addEventListener('click', async () => {
+  if (!deferredPrompt) return;
+  deferredPrompt.prompt();
+  const { outcome } = await deferredPrompt.userChoice;
+  if (outcome === 'accepted') showToast('✓ 已加入桌面');
+  deferredPrompt = null;
+  document.getElementById('installBanner').classList.remove('visible');
+});
+
+// 從Google Sheets讀取資料
+async function loadFromSheets(forceRefresh = false) {
+  // 檢查快取
+  if (!forceRefresh) {
+    const cached = localStorage.getItem(CACHE_KEY);
+    const cachedTime = localStorage.getItem(CACHE_TIME_KEY);
+    if (cached && cachedTime && Date.now() - parseInt(cachedTime) < CACHE_DURATION) {
+      applyData(JSON.parse(cached));
+      document.getElementById('syncInfo').classList.add('visible');
+      return;
+    }
+  }
+
+  document.getElementById('loadingBar').classList.remove('hidden');
+  document.getElementById('syncInfo').classList.remove('visible');
+
+  try {
+    // 讀取案件清單
+    const projUrl = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(SHEET_PROJECTS)}`;
+    const catUrl = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(SHEET_CATEGORIES)}`;
+
+    const [projRes, catRes] = await Promise.all([fetch(projUrl), fetch(catUrl)]);
+    const [projCsv, catCsv] = await Promise.all([projRes.text(), catRes.text()]);
+
+    const parsedProjects = parseCSV(projCsv).slice(1).filter(r => r[0]).map(r => ({
+      code: r[0]?.replace(/"/g,'').trim(),
+      name: r[1]?.replace(/"/g,'').trim(),
+      status: r[2]?.replace(/"/g,'').trim() || '進行中'
+    })).filter(p => p.status !== '結案');
+
+    const catRows = parseCSV(catCsv).slice(1).filter(r => r[0]);
+    const parsedCategoryMap = {};
+    catRows.forEach(r => {
+      const mainCode = r[0]?.replace(/"/g,'').trim();
+      const mainName = r[1]?.replace(/"/g,'').trim();
+      const subCode = r[2]?.replace(/"/g,'').trim();
+      const subName = r[3]?.replace(/"/g,'').trim();
+      const desc = r[4]?.replace(/"/g,'').trim() || '';
+      if (!mainCode || !subCode) return;
+      if (!parsedCategoryMap[mainCode]) {
+        parsedCategoryMap[mainCode] = { label: mainName, subs: [] };
+      }
+      parsedCategoryMap[mainCode].subs.push({ code: subCode, label: subName, desc });
+    });
+
+    const data = { projects: parsedProjects, categoryMap: parsedCategoryMap, prefix: 'JEC' };
+    localStorage.setItem(CACHE_KEY, JSON.stringify(data));
+    localStorage.setItem(CACHE_TIME_KEY, Date.now().toString());
+    applyData(data);
+    showToast('✓ 雲端規則已同步');
+
+  } catch(e) {
+    // 離線時用快取
+    const cached = localStorage.getItem(CACHE_KEY);
+    if (cached) {
+      applyData(JSON.parse(cached));
+      showToast('離線模式：使用上次快取');
+    } else {
+      showToast('無法連線，請確認網路');
+    }
+  } finally {
+    document.getElementById('loadingBar').classList.add('hidden');
+    document.getElementById('syncInfo').classList.add('visible');
+  }
+}
+
+function parseCSV(csv) {
+  return csv.split('\n').map(line => {
+    const result = []; let current = ''; let inQuotes = false;
+    for (let i = 0; i < line.length; i++) {
+      if (line[i] === '"') { inQuotes = !inQuotes; }
+      else if (line[i] === ',' && !inQuotes) { result.push(current); current = ''; }
+      else { current += line[i]; }
+    }
+    result.push(current);
+    return result;
+  });
+}
+
+function applyData(data) {
+  projects = data.projects || [];
+  categoryMap = data.categoryMap || {};
+  prefix = data.prefix || 'JEC';
+  renderProjectSelect();
+  renderMainCategorySelect();
+}
+
+function renderProjectSelect() {
+  const sel = document.getElementById('projectSelect');
+  sel.innerHTML = '<option value="">— 選擇案件 —</option>';
+  projects.forEach(p => {
+    sel.innerHTML += `<option value="${p.code}">${p.code} · ${p.name}</option>`;
+  });
+}
+
+function renderMainCategorySelect() {
+  const sel = document.getElementById('mainCategorySelect');
+  sel.innerHTML = '<option value="">— 選擇大類 —</option>';
+  Object.entries(categoryMap).forEach(([code, cat]) => {
+    sel.innerHTML += `<option value="${code}">${code}｜${cat.label}</option>`;
+  });
+}
+
+function onProjectChange() {
+  document.getElementById('resultCard').classList.remove('visible');
+}
+
+function onMainCategoryChange() {
+  const val = document.getElementById('mainCategorySelect').value;
+  selectedSub = null;
+  document.getElementById('resultCard').classList.remove('visible');
+  if (!val || !categoryMap[val]) {
+    document.getElementById('subBlock').classList.remove('visible');
+    return;
+  }
+  const cat = categoryMap[val];
+  const subList = document.getElementById('subList');
+  subList.innerHTML = '';
+  cat.subs.forEach(s => {
+    subList.innerHTML += `
+      <button class="sub-btn" onclick="selectSub('${s.code}','${s.label}',this)">
+        <div><span class="sub-code">${s.code}</span> · ${s.label}</div>
+        ${s.desc ? `<div class="sub-desc">${s.desc}</div>` : ''}
+      </button>`;
+  });
+  document.getElementById('subBlock').classList.add('visible');
+}
+
+function selectSub(code, label, el) {
+  document.querySelectorAll('.sub-btn').forEach(b => b.classList.remove('selected'));
+  el.classList.add('selected');
+  selectedSub = { code, label };
+  document.getElementById('resultCard').classList.remove('visible');
+}
+
+function generate() {
+  const projectCode = document.getElementById('projectSelect').value;
+  const mainCat = document.getElementById('mainCategorySelect').value;
+  const dateRaw = document.getElementById('dateInput').value;
+  const version = document.getElementById('versionInput').value.trim();
+  const ext = document.getElementById('extSelect').value;
+
+  if (!projectCode) { showToast('請選擇案件'); return; }
+  if (!mainCat) { showToast('請選擇大類'); return; }
+  if (!selectedSub) { showToast('請選擇細項'); return; }
+  if (!dateRaw) { showToast('請選擇日期'); return; }
+
+  const dateStr = dateRaw.replace(/-/g,'');
+  const project = projects.find(p => p.code === projectCode);
+  const catLabel = categoryMap[mainCat]?.label || mainCat;
+  const versionStr = version ? `_${version}` : '';
+
+  const filename = `${projectCode}_${selectedSub.code}_${selectedSub.label}_${dateStr}${versionStr}${ext}`;
+
+  window._lastFilename = filename;
+  window._lastProject = project;
+  window._lastCatLabel = catLabel;
+  window._lastMainCat = mainCat;
+  window._lastSubCode = selectedSub.code;
+  window._lastSubLabel = selectedSub.label;
+
+  document.getElementById('filenameDisplay').textContent = filename;
+  document.getElementById('folderPath').innerHTML =
+    `📁 ${projectCode}_${project?.name || ''}<br>` +
+    `&nbsp;&nbsp;&nbsp;└─ <span>${mainCat}_${catLabel}</span><br>` +
+    `&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└─ <span>${selectedSub.code}_${selectedSub.label}</span><br>` +
+    `&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└─ <span>${filename}</span>`;
+
+  document.getElementById('resultCard').classList.add('visible');
+  document.getElementById('resultCard').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function copyFilename() {
+  const text = document.getElementById('filenameDisplay').textContent;
+  navigator.clipboard.writeText(text).then(() => showToast('✓ 檔名已複製'));
+}
+
+async function shareFilename() {
+  const filename = window._lastFilename;
+  if (!filename) return;
+  const shareText = `【JEC標準檔名】\n${filename}\n\n存放路徑：\n${window._lastProject?.code}_${window._lastProject?.name} / ${window._lastMainCat}_${window._lastCatLabel} / ${window._lastSubCode}_${window._lastSubLabel} /`;
+  if (navigator.share) {
+    try { await navigator.share({ title: 'JEC 標準檔名', text: shareText }); }
+    catch(e) { if (e.name !== 'AbortError') { navigator.clipboard.writeText(shareText).then(()=>showToast('✓ 已複製')); } }
+  } else {
+    navigator.clipboard.writeText(shareText).then(()=>showToast('✓ 已複製，可貼至LINE'));
+  }
+}
+
+function reset() {
+  document.getElementById('projectSelect').value = '';
+  document.getElementById('mainCategorySelect').value = '';
+  document.getElementById('subBlock').classList.remove('visible');
+  document.getElementById('versionInput').value = '';
+  document.getElementById('resultCard').classList.remove('visible');
+  selectedSub = null;
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'), 2500);
+}
+
+// 初始化
+function init() {
+  const today = new Date();
+  const yyyy = today.getFullYear();
+  const mm = String(today.getMonth()+1).padStart(2,'0');
+  const dd = String(today.getDate()).padStart(2,'0');
+  document.getElementById('dateInput').value = `${yyyy}-${mm}-${dd}`;
+  loadFromSheets();
+}
+
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('sw.js').catch(()=>{});
+}
+
+init();
+</script>
+</body>
+</html>
