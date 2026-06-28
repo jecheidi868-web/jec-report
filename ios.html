@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#c9a84c">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="JEC編碼">
+<link rel="manifest" href="manifest.json">
+<title>JEC 檔案編碼小工具</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Helvetica Neue', Arial, sans-serif; background: #0f0f0f; color: #f0f0f0; min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 24px 16px 80px; }
+  header { width: 100%; max-width: 480px; display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+  .logo-mark { width: 36px; height: 36px; background: #c9a84c; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 800; color: #0f0f0f; letter-spacing: -1px; }
+  .header-text h1 { font-size: 15px; font-weight: 700; letter-spacing: 0.5px; }
+  .header-text p { font-size: 11px; color: #666; margin-top: 1px; }
+
+  .ios-install-banner { width: 100%; max-width: 480px; background: #1a1f2e; border: 1px solid #2a3a5a; border-radius: 12px; padding: 14px 16px; margin-bottom: 16px; display: none; }
+  .ios-install-banner.visible { display: block; }
+  .ios-install-title { font-size: 12px; font-weight: 700; color: #6eaec8; margin-bottom: 10px; }
+  .ios-steps { list-style: none; }
+  .ios-steps li { font-size: 12px; color: #aaa; padding: 5px 0; display: flex; align-items: flex-start; gap: 8px; line-height: 1.5; }
+  .ios-step-num { background: #2a3a5a; color: #6eaec8; border-radius: 50%; width: 18px; height: 18px; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+  .ios-dismiss { margin-top: 10px; width: 100%; background: transparent; border: 1px solid #2a3a5a; border-radius: 6px; color: #555; font-size: 11px; padding: 7px; cursor: pointer; }
+
+  .loading-bar { width: 100%; max-width: 480px; background: #1a2a1a; border: 1px solid #2a4a2a; border-radius: 10px; padding: 14px 16px; margin-bottom: 12px; display: flex; align-items: center; gap: 10px; }
+  .loading-bar.hidden { display: none; }
+  .spinner { width: 16px; height: 16px; border: 2px solid #2a4a2a; border-top-color: #7ec86e; border-radius: 50%; animation: spin 0.8s linear infinite; flex-shrink: 0; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .loading-bar p { font-size: 12px; color: #7ec86e; }
+
+  .sync-info { width: 100%; max-width: 480px; font-size: 10px; color: #444; text-align: right; margin-bottom: 8px; display: none; }
+  .sync-info.visible { display: block; }
+  .sync-dot { color: #5a8a4a; }
+
+  .card { width: 100%; max-width: 480px; background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 12px; padding: 20px; margin-bottom: 12px; }
+  .card-title { font-size: 11px; font-weight: 600; color: #c9a84c; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 14px; }
+  .field-group { margin-bottom: 16px; }
+  .field-group:last-child { margin-bottom: 0; }
+  label { display: block; font-size: 12px; color: #888; margin-bottom: 6px; font-weight: 500; }
+  select, input[type="text"], input[type="date"] { width: 100%; background: #111; border: 1px solid #333; border-radius: 8px; color: #f0f0f0; font-size: 14px; padding: 10px 12px; appearance: none; outline: none; transition: border-color 0.2s; }
+  select:focus, input:focus { border-color: #c9a84c; }
+  select option { background: #1a1a1a; }
+
+  .sub-category-block { display: none; margin-top: -8px; background: #111; border: 1px solid #2a3a2a; border-radius: 8px; padding: 10px 12px; }
+  .sub-category-block.visible { display: block; }
+  .sub-label { font-size: 10px; color: #5a8a4a; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; font-weight: 600; }
+  .sub-btn { display: block; width: 100%; text-align: left; background: transparent; border: 1px solid #2a3a2a; border-radius: 6px; color: #aaa; font-size: 12px; padding: 8px 10px; margin-bottom: 6px; cursor: pointer; transition: all 0.15s; line-height: 1.4; }
+  .sub-btn:last-child { margin-bottom: 0; }
+  .sub-btn.selected { background: #1a3a1a; border-color: #5a8a4a; color: #7ec86e; }
+  .sub-code { font-family: 'Courier New', monospace; color: #c9a84c; font-size: 11px; }
+  .sub-desc { color: #555; font-size: 10px; margin-top: 2px; }
+
+  .result-card { width: 100%; max-width: 480px; background: #111d0f; border: 1px solid #2a3a2a; border-radius: 12px; padding: 20px; margin-bottom: 12px; display: none; }
+  .result-card.visible { display: block; }
+  .result-label { font-size: 11px; color: #5a8a4a; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 10px; font-weight: 600; }
+  .filename-display { background: #0a0a0a; border: 1px solid #2a3a2a; border-radius: 8px; padding: 12px 14px; font-size: 13px; font-family: 'Courier New', monospace; color: #7ec86e; word-break: break-all; line-height: 1.5; margin-bottom: 12px; }
+  .folder-path { font-size: 11px; color: #555; font-family: 'Courier New', monospace; margin-bottom: 16px; line-height: 1.8; }
+  .folder-path span { color: #c9a84c; }
+
+  .btn-row { display: flex; gap: 8px; flex-wrap: wrap; }
+  .btn { flex: 1; padding: 11px; border-radius: 8px; font-size: 13px; font-weight: 600; border: none; cursor: pointer; transition: opacity 0.2s; min-width: 80px; }
+  .btn:active { opacity: 0.75; }
+  .btn-secondary { background: #2a2a2a; color: #f0f0f0; border: 1px solid #3a3a3a; }
+  .btn-copy { background: #1a3a1a; color: #7ec86e; border: 1px solid #2a4a2a; }
+  .btn-share { background: #1a2a3a; color: #6eaec8; border: 1px solid #2a3a4a; }
+
+  .generate-btn { width: 100%; max-width: 480px; padding: 14px; background: #c9a84c; color: #0f0f0f; border: none; border-radius: 10px; font-size: 15px; font-weight: 700; cursor: pointer; margin-bottom: 12px; transition: opacity 0.2s; }
+  .generate-btn:active { opacity: 0.8; }
+
+  .refresh-btn { width: 100%; max-width: 480px; background: #1a2a1a; border: 1px solid #2a4a2a; border-radius: 8px; color: #7ec86e; font-size: 12px; padding: 12px; cursor: pointer; margin-bottom: 12px; font-weight: 600; }
+  .refresh-btn:active { opacity: 0.7; }
+
+  .safe-bottom { height: env(safe-area-inset-bottom, 20px); }
+  .toast { position: fixed; bottom: calc(24px + env(safe-area-inset-bottom, 0px)); left: 50%; transform: translateX(-50%); background: #c9a84c; color: #0f0f0f; padding: 10px 20px; border-radius: 20px; font-size: 13px; font-weight: 600; opacity: 0; transition: opacity 0.3s; pointer-events: none; white-space: nowrap; z-index: 999; }
+  .toast.show { opacity: 1; }
+  .version-note { font-size: 10px; color: #444; text-align: center; margin-top: 8px; }
+</style>
+</head>
+<body>
+
+<div class="ios-install-banner" id="iosInstallBanner">
+  <div class="ios-install-title">📲 加入主畫面，使用更方便</div>
+  <ul class="ios-steps">
+    <li><div class="ios-step-num">1</div><span>點下方中間的 ⬆️ 分享按鈕</span></li>
+    <li><div class="ios-step-num">2</div><span>往下滑，找到「加入主畫面」</span></li>
+    <li><div class="ios-step-num">3</div><span>點「新增」，完成安裝</span></li>
+  </ul>
+  <button class="ios-dismiss" onclick="dismissIOSBanner()">我知道了</button>
+</div>
+
+<header>
+  <div class="logo-mark">JEC</div>
+  <div class="header-text">
+    <h1>檔案編碼小工具</h1>
+    <p>統一命名 · 雲端同步 · 一鍵分享</p>
+  </div>
+</header>
+
+<div class="loading-bar" id="loadingBar">
+  <div class="spinner"></div>
+  <p>載入編碼規則中…</p>
+</div>
+
+<div class="sync-info" id="syncInfo"><span class="sync-dot">●</span> 規則已載入</div>
+
+<div class="card">
+  <div class="card-title">Step 1 · 選擇案件</div>
+  <div class="field-group">
+    <label>案件</label>
+    <select id="projectSelect" onchange="onProjectChange()">
+      <option value="">載入中…</option>
+    </select>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-title">Step 2 · 選擇分類</div>
+  <div class="field-group">
+    <label>大類</label>
+    <select id="mainCategorySelect" onchange="onMainCategoryChange()">
+      <option value="">— 選擇大類 —</option>
+    </select>
+  </div>
+  <div class="sub-category-block" id="subBlock">
+    <div class="sub-label">選擇細項</div>
+    <div id="subList"></div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-title">Step 3 · 檔案設定</div>
+  <div class="field-group">
+    <label>日期（預設今日）</label>
+    <input type="date" id="dateInput">
+  </div>
+  <div class="field-group">
+    <label>版本號（選填，例如 v2）</label>
+    <input type="text" id="versionInput" placeholder="留空則不加版本號">
+  </div>
+  <div class="field-group">
+    <label>副檔名</label>
+    <select id="extSelect">
+      <option value=".pdf">PDF</option>
+      <option value=".jpg">JPG</option>
+      <option value=".png">PNG</option>
+      <option value=".dwg">DWG</option>
+      <option value=".xlsx">XLSX</option>
+      <option value=".docx">DOCX</option>
+    </select>
+  </div>
+</div>
+
+<button class="generate-btn" onclick="generate()">產生標準檔名</button>
+
+<div class="result-card" id="resultCard">
+  <div class="result-label">✓ 標準檔名產生完成</div>
+  <div class="filename-display" id="filenameDisplay"></div>
+  <div class="folder-path" id="folderPath"></div>
+  <div class="btn-row">
+    <button class="btn btn-copy" onclick="copyFilename()">複製檔名</button>
+    <button class="btn btn-share" onclick="shareFilename()">傳到LINE</button>
+    <button class="btn btn-secondary" onclick="reset()">重設</button>
+  </div>
+</div>
+
+<button class="refresh-btn" onclick="loadData()">↻ 重新載入規則</button>
+
+<p class="version-note">v4.0 iOS · JEC Interior Design · 2026 · GitHub同步版</p>
+<div class="safe-bottom"></div>
+<div class="toast" id="toast"></div>
+
+<script>
+// 直接讀同網域的data.json，完全沒有跨來源問題
+const DATA_URL = './data.json';
+
+let projects = [];
+let categoryMap = {};
+let selectedSub = null;
+
+function isIOS() { return /iphone|ipad|ipod/i.test(navigator.userAgent); }
+function isStandalone() { return window.navigator.standalone === true; }
+function showIOSInstallBanner() {
+  if (isIOS() && !isStandalone() && !localStorage.getItem('ios_dismissed')) {
+    document.getElementById('iosInstallBanner').classList.add('visible');
+  }
+}
+function dismissIOSBanner() {
+  document.getElementById('iosInstallBanner').classList.remove('visible');
+  localStorage.setItem('ios_dismissed', '1');
+}
+
+async function loadData() {
+  document.getElementById('loadingBar').classList.remove('hidden');
+  document.getElementById('syncInfo').classList.remove('visible');
+
+  try {
+    const res = await fetch(DATA_URL + '?t=' + Date.now());
+    const data = await res.json();
+    projects = data.projects || [];
+    categoryMap = data.categoryMap || {};
+    renderProjectSelect();
+    renderMainCategorySelect();
+    const updated = data.updatedAt ? new Date(data.updatedAt).toLocaleString('zh-TW') : '';
+    document.getElementById('syncInfo').innerHTML = `<span class="sync-dot">●</span> 規則已載入 ${updated ? '· 更新於 ' + updated : ''}`;
+    showToast('✓ 規則載入成功');
+  } catch(e) {
+    showToast('載入失敗，請重試');
+    console.error(e);
+  } finally {
+    document.getElementById('loadingBar').classList.add('hidden');
+    document.getElementById('syncInfo').classList.add('visible');
+  }
+}
+
+function renderProjectSelect() {
+  const sel = document.getElementById('projectSelect');
+  sel.innerHTML = '<option value="">— 選擇案件 —</option>';
+  projects.forEach(p => sel.innerHTML += `<option value="${p.code}">${p.code} · ${p.name}</option>`);
+}
+
+function renderMainCategorySelect() {
+  const sel = document.getElementById('mainCategorySelect');
+  sel.innerHTML = '<option value="">— 選擇大類 —</option>';
+  Object.entries(categoryMap).forEach(([code, cat]) => {
+    sel.innerHTML += `<option value="${code}">${code}｜${cat.label}</option>`;
+  });
+}
+
+function onProjectChange() { document.getElementById('resultCard').classList.remove('visible'); }
+
+function onMainCategoryChange() {
+  const val = document.getElementById('mainCategorySelect').value;
+  selectedSub = null;
+  document.getElementById('resultCard').classList.remove('visible');
+  if (!val || !categoryMap[val]) { document.getElementById('subBlock').classList.remove('visible'); return; }
+  const cat = categoryMap[val];
+  const subList = document.getElementById('subList');
+  subList.innerHTML = '';
+  cat.subs.forEach(s => {
+    subList.innerHTML += `<button class="sub-btn" onclick="selectSub('${s.code}','${s.label}',this)">
+      <div><span class="sub-code">${s.code}</span> · ${s.label}</div>
+      ${s.desc ? `<div class="sub-desc">${s.desc}</div>` : ''}
+    </button>`;
+  });
+  document.getElementById('subBlock').classList.add('visible');
+}
+
+function selectSub(code, label, el) {
+  document.querySelectorAll('.sub-btn').forEach(b => b.classList.remove('selected'));
+  el.classList.add('selected');
+  selectedSub = { code, label };
+  document.getElementById('resultCard').classList.remove('visible');
+}
+
+function generate() {
+  const projectCode = document.getElementById('projectSelect').value;
+  const mainCat = document.getElementById('mainCategorySelect').value;
+  const dateRaw = document.getElementById('dateInput').value;
+  const version = document.getElementById('versionInput').value.trim();
+  const ext = document.getElementById('extSelect').value;
+  if (!projectCode) { showToast('請選擇案件'); return; }
+  if (!mainCat) { showToast('請選擇大類'); return; }
+  if (!selectedSub) { showToast('請選擇細項'); return; }
+  if (!dateRaw) { showToast('請選擇日期'); return; }
+  const dateStr = dateRaw.replace(/-/g, '');
+  const project = projects.find(p => p.code === projectCode);
+  const catLabel = categoryMap[mainCat]?.label || mainCat;
+  const versionStr = version ? `_${version}` : '';
+  const filename = `${projectCode}_${selectedSub.code}_${selectedSub.label}_${dateStr}${versionStr}${ext}`;
+  window._lastFilename = filename;
+  window._lastProject = project;
+  window._lastCatLabel = catLabel;
+  window._lastMainCat = mainCat;
+  window._lastSubCode = selectedSub.code;
+  window._lastSubLabel = selectedSub.label;
+  document.getElementById('filenameDisplay').textContent = filename;
+  document.getElementById('folderPath').innerHTML =
+    `📁 ${projectCode}_${project?.name || ''}<br>` +
+    `&nbsp;&nbsp;&nbsp;└─ <span>${mainCat}_${catLabel}</span><br>` +
+    `&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└─ <span>${selectedSub.code}_${selectedSub.label}</span><br>` +
+    `&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└─ <span>${filename}</span>`;
+  document.getElementById('resultCard').classList.add('visible');
+  document.getElementById('resultCard').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function copyFilename() {
+  const text = document.getElementById('filenameDisplay').textContent;
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(() => showToast('✓ 檔名已複製'));
+  } else {
+    const ta = document.createElement('textarea');
+    ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta); ta.focus(); ta.select();
+    document.execCommand('copy'); document.body.removeChild(ta);
+    showToast('✓ 檔名已複製');
+  }
+}
+
+async function shareFilename() {
+  const filename = window._lastFilename;
+  if (!filename) return;
+  const shareText = `【JEC標準檔名】\n${filename}\n\n存放路徑：\n${window._lastProject?.code}_${window._lastProject?.name} / ${window._lastMainCat}_${window._lastCatLabel} / ${window._lastSubCode}_${window._lastSubLabel} /`;
+  if (navigator.share) {
+    try { await navigator.share({ title: 'JEC 標準檔名', text: shareText }); }
+    catch(e) { if (e.name !== 'AbortError') copyToClipboard(shareText); }
+  } else { copyToClipboard(shareText); }
+}
+
+function copyToClipboard(text) {
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(() => showToast('✓ 已複製，可貼至LINE'));
+  } else {
+    const ta = document.createElement('textarea');
+    ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta); ta.focus(); ta.select();
+    document.execCommand('copy'); document.body.removeChild(ta);
+    showToast('✓ 已複製，可貼至LINE');
+  }
+}
+
+function reset() {
+  document.getElementById('projectSelect').value = '';
+  document.getElementById('mainCategorySelect').value = '';
+  document.getElementById('subBlock').classList.remove('visible');
+  document.getElementById('versionInput').value = '';
+  document.getElementById('resultCard').classList.remove('visible');
+  selectedSub = null;
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('sw.js').catch(() => {});
+}
+
+function init() {
+  const today = new Date();
+  const yyyy = today.getFullYear();
+  const mm = String(today.getMonth() + 1).padStart(2, '0');
+  const dd = String(today.getDate()).padStart(2, '0');
+  document.getElementById('dateInput').value = `${yyyy}-${mm}-${dd}`;
+  showIOSInstallBanner();
+  loadData();
+}
+
+init();
+</script>
+</body>
+</html>
