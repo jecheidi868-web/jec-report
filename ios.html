@@ -163,6 +163,27 @@
     <button class="btn btn-copy" onclick="copyFilename()">複製檔名</button>
     <button class="btn btn-secondary" onclick="reset()">重設</button>
   </div>
+
+  <!-- 上傳改名下載 -->
+  <div style="margin-top:16px;border-top:1px solid #2a3a2a;padding-top:16px;">
+    <div style="font-size:10px;color:#5a8a4a;letter-spacing:1.5px;text-transform:uppercase;font-weight:600;margin-bottom:10px;">Step 4 · 上傳檔案 · 改名 · 下載</div>
+    <label for="fileUpload" style="display:flex;align-items:center;justify-content:center;gap:8px;background:#111;border:1px dashed #3a3a3a;border-radius:8px;padding:16px;cursor:pointer;font-size:13px;color:#888;margin-bottom:10px;">
+      <span style="font-size:20px;">📎</span>
+      <span id="uploadLabelText">點此選擇檔案</span>
+    </label>
+    <input type="file" id="fileUpload" style="display:none;" accept=".pdf,.jpg,.jpeg,.png,.dwg,.xlsx,.docx" onchange="onFileSelected(this)">
+    <div style="font-size:10px;color:#444;margin-bottom:10px;padding:8px 10px;background:#111;border-radius:6px;line-height:1.6;">
+      ✅ PDF / JPG / PNG / DWG / XLSX / DOCX · 建議 200MB 以下<br>
+      ❌ 影片檔案請直接存入 Google Drive
+    </div>
+    <div id="filePreview" style="display:none;background:#0a0a0a;border:1px solid #2a3a2a;border-radius:8px;padding:10px 12px;margin-bottom:10px;">
+      <div style="font-size:10px;color:#555;margin-bottom:3px;">原始檔名</div>
+      <div id="originalFilename" style="font-size:11px;font-family:monospace;color:#777;word-break:break-all;margin-bottom:8px;"></div>
+      <div style="font-size:10px;color:#5a8a4a;margin-bottom:3px;">改名後</div>
+      <div id="newFilenamePreview" style="font-size:12px;font-family:monospace;color:#7ec86e;word-break:break-all;"></div>
+    </div>
+    <button class="btn btn-copy" id="downloadBtn" style="width:100%;display:none;padding:13px;" onclick="downloadRenamed()">⬇ 下載改好名稱的檔案</button>
+  </div>
 </div>
 
 <button class="refresh-btn" onclick="loadData()">↻ 重新載入規則</button>
@@ -320,12 +341,52 @@ function copyToClipboard(text) {
   }
 }
 
+let uploadedFile = null;
+
+function onFileSelected(input) {
+  const file = input.files[0];
+  if (!file) return;
+  uploadedFile = file;
+  const filename = window._lastFilename;
+  if (!filename) { showToast('請先產生標準檔名'); return; }
+  // 取得副檔名
+  const ext = file.name.includes('.') ? '.' + file.name.split('.').pop() : '';
+  const baseName = filename.replace(/\.[^.]+$/, '');
+  const newName = baseName + ext;
+  document.getElementById('originalFilename').textContent = file.name;
+  document.getElementById('newFilenamePreview').textContent = newName;
+  document.getElementById('uploadLabelText').textContent = file.name;
+  document.getElementById('filePreview').style.display = 'block';
+  document.getElementById('downloadBtn').style.display = 'block';
+}
+
+function downloadRenamed() {
+  if (!uploadedFile || !window._lastFilename) return;
+  const ext = uploadedFile.name.includes('.') ? '.' + uploadedFile.name.split('.').pop() : '';
+  const baseName = window._lastFilename.replace(/\.[^.]+$/, '');
+  const newName = baseName + ext;
+  const url = URL.createObjectURL(uploadedFile);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = newName;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  showToast('✓ 已下載：' + newName);
+}
+
 function reset() {
   document.getElementById('projectSelect').value = '';
   document.getElementById('mainCategorySelect').value = '';
   document.getElementById('subBlock').classList.remove('visible');
   document.getElementById('versionInput').value = '';
   document.getElementById('resultCard').classList.remove('visible');
+  document.getElementById('fileUpload').value = '';
+  document.getElementById('uploadLabelText').textContent = '點此選擇檔案';
+  document.getElementById('filePreview').style.display = 'none';
+  document.getElementById('downloadBtn').style.display = 'none';
+  uploadedFile = null;
   selectedSub = null;
 }
 
