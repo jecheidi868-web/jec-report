@@ -8,7 +8,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="JEC編碼">
 <link rel="manifest" href="manifest.json">
-<title>JEC 檔案編碼.IOS</title>
+<title>JEC 檔案編碼小工具</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: 'Helvetica Neue', Arial, sans-serif; background: #0f0f0f; color: #f0f0f0; min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 24px 16px 80px; }
@@ -289,7 +289,7 @@ function generate() {
   const project = projects.find(p => p.code === projectCode);
   const catLabel = categoryMap[mainCat]?.label || mainCat;
   const versionStr = version ? `_${version}` : '';
-  const filename = `${projectCode}_${selectedSub.code}_${selectedSub.label}_${dateStr}${versionStr}${ext}`;
+  const filename = `${projectCode}_${project?.name || ''}_${selectedSub.code}_${selectedSub.label}_${dateStr}${versionStr}${ext}`;
   window._lastFilename = filename;
   window._lastProject = project;
   window._lastCatLabel = catLabel;
