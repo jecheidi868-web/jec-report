@@ -131,9 +131,10 @@
 
   <div class="sub-category-block" id="tradeBlock" style="display:none;">
     <div class="sub-label">選擇工種（C類）</div>
-    <select id="tradeSelect" onchange="onTradeChange()" style="width:100%;background:#f0ede8;border:1px solid #2d3020;border-radius:8px;padding:10px;color:#2d3020;font-size:15px;margin-top:8px;">
-      <option value="">— 選擇工種 —</option>
-    </select>
+    <input id="tradeInput" list="tradeList" placeholder="輸入工種名稱搜尋..." oninput="onTradeChange()"
+      autocomplete="off"
+      style="width:100%;background:#f0ede8;border:1px solid #2d3020;border-radius:8px;padding:10px;color:#2d3020;font-size:15px;margin-top:8px;">
+    <datalist id="tradeList"></datalist>
   </div>
 
   <div class="sub-category-block" id="vendorBlock" style="display:none;">
@@ -274,7 +275,8 @@ function onMainCategoryChange() {
   selectedVendor = null;
   document.getElementById('tradeBlock').style.display = 'none';
   document.getElementById('vendorBlock').style.display = 'none';
-  document.getElementById('tradeSelect').innerHTML = '<option value="">— 選擇工種 —</option>';
+  document.getElementById('tradeInput').value = '';
+  document.getElementById('tradeList').innerHTML = '';
   document.getElementById('vendorSelect').innerHTML = '<option value="">— 選擇廠商 —</option>';
   document.getElementById('resultCard').classList.remove('visible');
   if (!val || !categoryMap[val]) { document.getElementById('subBlock').classList.remove('visible'); return; }
@@ -299,11 +301,12 @@ function selectSub(code, label, el) {
 
   const mainCat = document.getElementById('mainCategorySelect').value;
   if (mainCat === 'C') {
-    const tradeSelect = document.getElementById('tradeSelect');
-    tradeSelect.innerHTML = '<option value="">— 選擇工種 —</option>';
-    Object.keys(vendorMap).sort().forEach(trade => {
-      tradeSelect.innerHTML += `<option value="${trade}">${trade}</option>`;
+    const tradeList = document.getElementById('tradeList');
+    tradeList.innerHTML = '';
+    Object.keys(vendorMap).forEach(trade => {
+      tradeList.innerHTML += `<option value="${trade}">`;
     });
+    document.getElementById('tradeInput').value = '';
     document.getElementById('tradeBlock').style.display = 'block';
     document.getElementById('vendorBlock').style.display = 'none';
     document.getElementById('vendorSelect').innerHTML = '<option value="">— 選擇廠商 —</option>';
@@ -314,7 +317,7 @@ function selectSub(code, label, el) {
 }
 
 function onTradeChange() {
-  const trade = document.getElementById('tradeSelect').value;
+  const trade = document.getElementById('tradeInput').value.trim();
   selectedVendor = null;
   const vendorSelect = document.getElementById('vendorSelect');
   vendorSelect.innerHTML = '<option value="">— 選擇廠商 —</option>';
