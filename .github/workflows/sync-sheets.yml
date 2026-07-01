@@ -94,5 +94,5 @@ PYEOF
             echo "No changes"
           else
             git commit -m "Auto sync: update data.json from Google Sheets"
-            git push origin HEAD:main --force-with-lease
+            git push origin HEAD:main --force
           fi
