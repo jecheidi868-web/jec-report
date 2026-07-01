@@ -83,12 +83,15 @@ jobs:
 
           print(f"Done: {len(projects)} projects, {len(category_map)} categories, {len(vendors)} trades")
           PYEOF
-
-      - name: Commit and push if changed
+          
+          - name: Commit and push if changed
         run: |
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
+          git add data.json
+          git stash
           git pull --rebase origin main
+          git stash pop
           git add data.json
           if git diff --staged --quiet; then
             echo "No changes"
