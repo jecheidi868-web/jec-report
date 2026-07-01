@@ -1,5 +1,71 @@
 {
-  "projects": [],
+  "projects": [
+    {
+      "code": "JEC-2026-001",
+      "name": "高雄洋基",
+      "status": "進行中"
+    },
+    {
+      "code": "JEC-2026-002",
+      "name": "新竹洋基",
+      "status": "進行中"
+    },
+    {
+      "code": "JEC-2026-003",
+      "name": "信義文匯",
+      "status": "進行中"
+    },
+    {
+      "code": "JEC-2026-004",
+      "name": "中和松下1B1F",
+      "status": "進行中"
+    },
+    {
+      "code": "JEC-2026-005",
+      "name": "崛世回興大",
+      "status": "進行中"
+    },
+    {
+      "code": "JEC-2026-006",
+      "name": "東正鐵工廠 ( 總管理部 )",
+      "status": "進行中"
+    },
+    {
+      "code": "JEC-2026-007",
+      "name": "東正鐵工廠 ( 廠務室 )",
+      "status": "進行中"
+    },
+    {
+      "code": "JEC-2026-008",
+      "name": "中和-松下電腦-3B3F",
+      "status": "進行中"
+    },
+    {
+      "code": "JEC-2026-009",
+      "name": "竹東-蕭宅",
+      "status": "進行中"
+    },
+    {
+      "code": "JEC-2026-010",
+      "name": "新竹-歐西普",
+      "status": "進行中"
+    },
+    {
+      "code": "JEC-2026-011",
+      "name": "台中-傑群",
+      "status": "進行中"
+    },
+    {
+      "code": "JEC-2026-012",
+      "name": "台中-西屯文旅",
+      "status": "進行中"
+    },
+    {
+      "code": "JEC-2026-013",
+      "name": "內湖-源華智醫",
+      "status": "進行中"
+    }
+  ],
   "categoryMap": {},
   "vendors": {
     "IT": [
