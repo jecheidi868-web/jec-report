@@ -14,7 +14,7 @@ jobs:
 
       - name: Fetch Sheets data and build data.json
         run: |
-          SHEET_ID="1v4Z82N7jCeOCuFlT_5frsUTYu071Ycud1lC7U772r_E"
+          SHEET_ID="1Frf3JZsDYIh2roqksKlxvBDYJyvqdFazePdKP4_cQXo"
           
           # 抓案件清單
           curl -s "https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=%E6%A1%88%E4%BB%B6%E6%B8%85%E5%96%AE&headers=1" -o projects_raw.csv
