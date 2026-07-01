@@ -2,8 +2,8 @@ name: Sync Google Sheets to data.json
 
 on:
   schedule:
-    - cron: '*/30 * * * *'  # 每30分鐘執行一次
-  workflow_dispatch:          # 也可以手動觸發
+    - cron: '*/30 * * * *'
+  workflow_dispatch:
 
 jobs:
   sync:
@@ -25,16 +25,22 @@ jobs:
           # 抓廠商歷史名冊（中控）
           curl -s "https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=%E5%BB%A0%E5%95%86%E6%AD%B7%E5%8F%B2%E5%90%8D%E5%86%8A%EF%BC%88%E4%B8%AD%E6%8E%A7%EF%BC%89&headers=1" -o vendors_raw.csv
           
-          # 用Python轉成JSON
-          python3 << 'PYEOF'
-          import csv, json, io
+          # 抓更新時間
+          UPDATED_AT=$(date -u +%Y-%m-%dT%H:%M:%SZ)
+          
+          python3 << PYEOF
+          import csv, json, io, os
 
           def parse_csv(filename):
-              with open(filename, 'r', encoding='utf-8') as f:
-                  content = f.read()
-              reader = csv.reader(io.StringIO(content))
-              rows = list(reader)
-              return rows[1:] if len(rows) > 1 else []
+              try:
+                  with open(filename, 'r', encoding='utf-8') as f:
+                      content = f.read()
+                  reader = csv.reader(io.StringIO(content))
+                  rows = list(reader)
+                  return rows[1:] if len(rows) > 1 else []
+              except Exception as e:
+                  print(f"Error reading {filename}: {e}")
+                  return []
 
           # 解析案件
           proj_rows = parse_csv('projects_raw.csv')
@@ -56,23 +62,23 @@ jobs:
               if len(r) >= 4 and r[0].strip() and r[2].strip():
                   main_code = r[0].strip()
                   main_name = r[1].strip()
-                  sub_code = r[2].strip()
-                  sub_name = r[3].strip()
-                  desc = r[4].strip() if len(r) > 4 else ''
+                  sub_code  = r[2].strip()
+                  sub_name  = r[3].strip()
+                  desc      = r[4].strip() if len(r) > 4 else ''
                   if main_code not in category_map:
                       category_map[main_code] = {'label': main_name, 'subs': []}
                   category_map[main_code]['subs'].append({
-                      'code': sub_code,
+                      'code':  sub_code,
                       'label': sub_name,
-                      'desc': desc
+                      'desc':  desc
                   })
 
           # 解析廠商歷史名冊
-          # 欄位順序：A廠商ID, B廠商類型, C工種, D廠商名稱, E評級,
-          #           F地區, G統編, H聯絡人, I電話, J地址, K備註,
-          #           L Drive連結, M建立日期, N最後更新, O狀態
+          # 欄位：A廠商ID, B廠商類型, C工種, D廠商名稱, E評級,
+          #       F地區, G統編, H聯絡人, I電話, J地址, K備註,
+          #       L Drive連結, M建立日期, N最後更新, O狀態
           vendor_rows = parse_csv('vendors_raw.csv')
-          vendors = {}  # 以工種為key，廠商清單為value
+          vendors = {}
 
           for r in vendor_rows:
               if len(r) < 4:
@@ -84,7 +90,6 @@ jobs:
               grade       = r[4].strip() if len(r) > 4 else ''
               status      = r[14].strip() if len(r) > 14 else '正常'
 
-              # 只納入狀態=正常、有廠商名稱、有工種的資料
               if not name or not trade or status == '停用':
                   continue
 
@@ -98,14 +103,15 @@ jobs:
                   'type':  vendor_type
               })
 
-          # 工種排序
           vendors_sorted = {k: vendors[k] for k in sorted(vendors.keys())}
+
+          updated_at = os.environ.get('UPDATED_AT', '')
 
           data = {
               'projects':    projects,
               'categoryMap': category_map,
               'vendors':     vendors_sorted,
-              'updatedAt':   '$(date -u +%Y-%m-%dT%H:%M:%SZ)'
+              'updatedAt':   updated_at
           }
 
           with open('data.json', 'w', encoding='utf-8') as f:
