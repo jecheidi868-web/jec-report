@@ -36,7 +36,7 @@ jobs:
               if len(r) >= 2 and r[0].strip() and (len(r) < 3 or r[2].strip() != '結案'):
                   projects.append({'code': r[0].strip(), 'name': r[1].strip(), 'status': r[2].strip() if len(r) > 2 else '進行中'})
 
-          # 類別清單（處理合併儲存格：A欄B欄空白時沿用上一筆）
+          # 類別清單（處理合併儲存格）
           cm = {}
           last_mc = ''
           last_ml = ''
@@ -47,7 +47,6 @@ jobs:
               sc = r[2].strip()
               sl = r[3].strip()
               desc = r[4].strip() if len(r) > 4 else ''
-              # 合併儲存格：A欄空白時沿用上一個大類
               if mc:
                   last_mc = mc
                   last_ml = ml
@@ -59,34 +58,45 @@ jobs:
                   cm[mc] = {'label': ml, 'subs': []}
               cm[mc]['subs'].append({'code': sc, 'label': sl, 'desc': desc})
 
-          # 廠商歷史名冊
+          # 廠商歷史名冊（含排序權重P欄=index 15）
           vd = {}
           for r in rows('v.csv'):
               if len(r) < 4: continue
-              t  = r[2].strip() if len(r) > 2 else ''
-              n  = r[3].strip() if len(r) > 3 else ''
-              g  = r[4].strip() if len(r) > 4 else ''
-              s  = r[14].strip() if len(r) > 14 else '正常'
+              t       = r[2].strip() if len(r) > 2 else ''
+              n       = r[3].strip() if len(r) > 3 else ''
+              g       = r[4].strip() if len(r) > 4 else ''
+              s       = r[14].strip() if len(r) > 14 else '正常'
+              weight  = r[15].strip() if len(r) > 15 else ''
               if not n or not t or s == '停用': continue
               if t not in vd: vd[t] = []
-              vd[t].append({'id': r[0].strip(), 'name': n, 'grade': g, 'type': r[1].strip()})
+              # weight轉數字，空白給999（排最後）
+              try:
+                  w = int(weight) if weight else 999
+              except:
+                  w = 999
+              vd[t].append({'id': r[0].strip(), 'name': n, 'grade': g, 'type': r[1].strip(), 'weight': w})
+
+          # 每個工種內部按weight排序，同weight按名稱排
+          for t in vd:
+              vd[t].sort(key=lambda x: (x['weight'], x['name']))
+
+          # 工種本身：有廠商weight<999的工種排前面，其餘按字母
+          def trade_sort_key(trade):
+              min_w = min(v['weight'] for v in vd[trade])
+              return (min_w, trade)
+
+          vendors_sorted = {k: vd[k] for k in sorted(vd.keys(), key=trade_sort_key)}
 
           data = {
               'projects': projects,
               'categoryMap': cm,
-              'vendors': {k: vd[k] for k in sorted(vd)},
+              'vendors': vendors_sorted,
               'updatedAt': os.environ.get('UPDATED_AT', '')
           }
 
           with open('data.json', 'w', encoding='utf-8') as f:
               json.dump(data, f, ensure_ascii=False, indent=2)
-              data['_rebuilt'] = True
 
-          # debug
-          import subprocess
-          subprocess.run(['head', '-5', 'c.csv'])
-          print("cm keys:", list(cm.keys()))
-          
           print(f"OK: {len(projects)}p {len(cm)}c {len(vd)}v")
           PYEOF
 
