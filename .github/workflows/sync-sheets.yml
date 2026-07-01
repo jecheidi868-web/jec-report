@@ -11,8 +11,6 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
       - name: Fetch Sheets data and build data.json
         run: |
@@ -26,76 +24,75 @@ jobs:
           export UPDATED_AT
 
           python3 << 'PYEOF'
-          import csv, json, io, os
+import csv, json, io, os
 
-          def parse_csv(filename):
-              try:
-                  with open(filename, 'r', encoding='utf-8') as f:
-                      content = f.read()
-                  reader = csv.reader(io.StringIO(content))
-                  rows = list(reader)
-                  return rows[1:] if len(rows) > 1 else []
-              except Exception as e:
-                  print(f"Error: {e}")
-                  return []
+def parse_csv(filename):
+    try:
+        with open(filename, 'r', encoding='utf-8') as f:
+            content = f.read()
+        rows = list(csv.reader(io.StringIO(content)))
+        return rows[1:] if len(rows) > 1 else []
+    except Exception as e:
+        print(f"Error: {e}")
+        return []
 
-          proj_rows = parse_csv('projects_raw.csv')
-          projects = []
-          for r in proj_rows:
-              if len(r) >= 2 and r[0].strip():
-                  status = r[2].strip() if len(r) > 2 else '進行中'
-                  if status != '結案':
-                      projects.append({'code': r[0].strip(), 'name': r[1].strip(), 'status': status})
+proj_rows = parse_csv('projects_raw.csv')
+projects = []
+for r in proj_rows:
+    if len(r) >= 2 and r[0].strip():
+        status = r[2].strip() if len(r) > 2 else '進行中'
+        if status != '結案':
+            projects.append({'code': r[0].strip(), 'name': r[1].strip(), 'status': status})
 
-          cat_rows = parse_csv('categories_raw.csv')
-          category_map = {}
-          for r in cat_rows:
-              if len(r) >= 4 and r[0].strip() and r[2].strip():
-                  mc = r[0].strip()
-                  if mc not in category_map:
-                      category_map[mc] = {'label': r[1].strip(), 'subs': []}
-                  category_map[mc]['subs'].append({'code': r[2].strip(), 'label': r[3].strip(), 'desc': r[4].strip() if len(r) > 4 else ''})
+cat_rows = parse_csv('categories_raw.csv')
+category_map = {}
+for r in cat_rows:
+    if len(r) >= 4 and r[0].strip() and r[2].strip():
+        mc = r[0].strip()
+        if mc not in category_map:
+            category_map[mc] = {'label': r[1].strip(), 'subs': []}
+        category_map[mc]['subs'].append({
+            'code': r[2].strip(),
+            'label': r[3].strip(),
+            'desc': r[4].strip() if len(r) > 4 else ''
+        })
 
-          vendor_rows = parse_csv('vendors_raw.csv')
-          vendors = {}
-          for r in vendor_rows:
-              if len(r) < 4:
-                  continue
-              trade  = r[2].strip() if len(r) > 2 else ''
-              name   = r[3].strip() if len(r) > 3 else ''
-              grade  = r[4].strip() if len(r) > 4 else ''
-              status = r[14].strip() if len(r) > 14 else '正常'
-              if not name or not trade or status == '停用':
-                  continue
-              if trade not in vendors:
-                  vendors[trade] = []
-              vendors[trade].append({'id': r[0].strip(), 'name': name, 'grade': grade, 'type': r[1].strip()})
+vendor_rows = parse_csv('vendors_raw.csv')
+vendors = {}
+for r in vendor_rows:
+    if len(r) < 4:
+        continue
+    trade  = r[2].strip() if len(r) > 2 else ''
+    name   = r[3].strip() if len(r) > 3 else ''
+    grade  = r[4].strip() if len(r) > 4 else ''
+    status = r[14].strip() if len(r) > 14 else '正常'
+    if not name or not trade or status == '停用':
+        continue
+    if trade not in vendors:
+        vendors[trade] = []
+    vendors[trade].append({'id': r[0].strip(), 'name': name, 'grade': grade, 'type': r[1].strip()})
 
-          data = {
-              'projects': projects,
-              'categoryMap': category_map,
-              'vendors': {k: vendors[k] for k in sorted(vendors.keys())},
-              'updatedAt': os.environ.get('UPDATED_AT', '')
-          }
+data = {
+    'projects': projects,
+    'categoryMap': category_map,
+    'vendors': {k: vendors[k] for k in sorted(vendors.keys())},
+    'updatedAt': os.environ.get('UPDATED_AT', '')
+}
 
-          with open('data.json', 'w', encoding='utf-8') as f:
-              json.dump(data, f, ensure_ascii=False, indent=2)
+with open('data.json', 'w', encoding='utf-8') as f:
+    json.dump(data, f, ensure_ascii=False, indent=2)
 
-          print(f"Done: {len(projects)} projects, {len(category_map)} categories, {len(vendors)} trades")
-          PYEOF
-          
-          - name: Commit and push if changed
+print(f"Done: {len(projects)} projects, {len(category_map)} categories, {len(vendors)} trades")
+PYEOF
+
+      - name: Commit and push if changed
         run: |
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
-          git add data.json
-          git stash
-          git pull --rebase origin main
-          git stash pop
           git add data.json
           if git diff --staged --quiet; then
             echo "No changes"
           else
             git commit -m "Auto sync: update data.json from Google Sheets"
-            git push
+            git push origin HEAD:main --force-with-lease
           fi
