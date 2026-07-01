@@ -80,7 +80,13 @@ jobs:
 
           with open('data.json', 'w', encoding='utf-8') as f:
               json.dump(data, f, ensure_ascii=False, indent=2)
+              data['_rebuilt'] = True
 
+          # debug
+          import subprocess
+          subprocess.run(['head', '-5', 'c.csv'])
+          print("cm keys:", list(cm.keys()))
+          
           print(f"OK: {len(projects)}p {len(cm)}c {len(vd)}v")
           PYEOF
 
