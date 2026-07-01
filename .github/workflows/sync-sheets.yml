@@ -120,10 +120,11 @@ jobs:
           print(f"✓ 完成：{len(projects)} 個案件，{len(category_map)} 個大類，{len(vendors_sorted)} 個工種")
           PYEOF
 
-      - name: Commit and push if changed
+- name: Commit and push if changed
         run: |
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
+          git pull --rebase origin main
           git add data.json
           if git diff --staged --quiet; then
             echo "No changes to commit"
