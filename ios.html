@@ -131,10 +131,10 @@
 
   <div class="sub-category-block" id="tradeBlock" style="display:none;">
     <div class="sub-label">選擇工種（C類）</div>
-    <input id="tradeInput" list="tradeList" placeholder="輸入工種名稱搜尋..." oninput="onTradeChange()"
-      autocomplete="off"
-      style="width:100%;background:#f0ede8;border:1px solid #2d3020;border-radius:8px;padding:10px;color:#2d3020;font-size:15px;margin-top:8px;">
-    <datalist id="tradeList"></datalist>
+    <input id="tradeSearch" placeholder="🔍 輸入工種搜尋..." oninput="filterTrades()" autocomplete="off"
+      style="width:100%;background:#f0ede8;border:1px solid #2d3020;border-radius:8px;padding:10px;color:#2d3020;font-size:15px;margin-top:8px;margin-bottom:6px;">
+    <div id="tradeListBox" style="max-height:180px;overflow-y:auto;border:1px solid #2d3020;border-radius:8px;background:#f0ede8;"></div>
+    <input type="hidden" id="tradeValue" value="">
   </div>
 
   <div class="sub-category-block" id="vendorBlock" style="display:none;">
@@ -275,8 +275,7 @@ function onMainCategoryChange() {
   selectedVendor = null;
   document.getElementById('tradeBlock').style.display = 'none';
   document.getElementById('vendorBlock').style.display = 'none';
-  document.getElementById('tradeInput').value = '';
-  document.getElementById('tradeList').innerHTML = '';
+  if(document.getElementById('tradeSearch')) { document.getElementById('tradeSearch').value=''; document.getElementById('tradeValue').value=''; document.getElementById('tradeListBox').innerHTML=''; }
   document.getElementById('vendorSelect').innerHTML = '<option value="">— 選擇廠商 —</option>';
   document.getElementById('resultCard').classList.remove('visible');
   if (!val || !categoryMap[val]) { document.getElementById('subBlock').classList.remove('visible'); return; }
@@ -301,12 +300,10 @@ function selectSub(code, label, el) {
 
   const mainCat = document.getElementById('mainCategorySelect').value;
   if (mainCat === 'C') {
-    const tradeList = document.getElementById('tradeList');
-    tradeList.innerHTML = '';
-    Object.keys(vendorMap).forEach(trade => {
-      tradeList.innerHTML += `<option value="${trade}">`;
-    });
-    document.getElementById('tradeInput').value = '';
+    window._allTrades = Object.keys(vendorMap);
+    document.getElementById('tradeSearch').value = '';
+    document.getElementById('tradeValue').value = '';
+    renderTradeList(window._allTrades, '');
     document.getElementById('tradeBlock').style.display = 'block';
     document.getElementById('vendorBlock').style.display = 'none';
     document.getElementById('vendorSelect').innerHTML = '<option value="">— 選擇廠商 —</option>';
@@ -316,8 +313,32 @@ function selectSub(code, label, el) {
   }
 }
 
-function onTradeChange() {
-  const trade = document.getElementById('tradeInput').value.trim();
+function renderTradeList(trades, selected) {
+  const box = document.getElementById('tradeListBox');
+  if (!trades || !trades.length) {
+    box.innerHTML = '<div style="padding:10px;color:#8a8a7a;font-size:13px;text-align:center;">找不到符合的工種</div>';
+    return;
+  }
+  box.innerHTML = trades.map(t => {
+    const isSelected = t === selected;
+    return `<div onclick="selectTrade('${t}')"
+      style="padding:11px 14px;border-bottom:1px solid #e0dcd4;font-size:15px;color:#2d3020;cursor:pointer;
+      ${isSelected ? 'background:#2d3020;color:#f7f5f1;font-weight:600;' : ''}"
+      >${t}</div>`;
+  }).join('');
+}
+
+function filterTrades() {
+  const q = document.getElementById('tradeSearch').value.trim();
+  const filtered = (window._allTrades || []).filter(t => t.includes(q));
+  const cur = document.getElementById('tradeValue').value;
+  renderTradeList(filtered, cur);
+}
+
+function selectTrade(trade) {
+  document.getElementById('tradeValue').value = trade;
+  document.getElementById('tradeSearch').value = trade;
+  renderTradeList(window._allTrades, trade);
   selectedVendor = null;
   const vendorSelect = document.getElementById('vendorSelect');
   vendorSelect.innerHTML = '<option value="">— 選擇廠商 —</option>';
@@ -331,6 +352,8 @@ function onTradeChange() {
   });
   document.getElementById('vendorBlock').style.display = 'block';
 }
+
+function onTradeChange() { filterTrades(); }
 
 function onVendorChange() {
   selectedVendor = document.getElementById('vendorSelect').value || null;
