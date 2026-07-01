@@ -23,31 +23,50 @@ jobs:
           curl -s "https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=%E5%BB%A0%E5%95%86%E6%AD%B7%E5%8F%B2%E5%90%8D%E5%86%8A%EF%BC%88%E4%B8%AD%E6%8E%A7%EF%BC%89&headers=1" -o v.csv
 
           python3 << PYEOF
-          import csv, json, io, os, sys
+          import csv, json, io, os
 
           def rows(f):
               d = open(f, encoding='utf-8').read()
               r = list(csv.reader(io.StringIO(d)))
               return r[1:] if len(r) > 1 else []
 
+          # 案件清單
           projects = []
           for r in rows('p.csv'):
               if len(r) >= 2 and r[0].strip() and (len(r) < 3 or r[2].strip() != '結案'):
                   projects.append({'code': r[0].strip(), 'name': r[1].strip(), 'status': r[2].strip() if len(r) > 2 else '進行中'})
 
+          # 類別清單（處理合併儲存格：A欄B欄空白時沿用上一筆）
           cm = {}
+          last_mc = ''
+          last_ml = ''
           for r in rows('c.csv'):
-              if len(r) >= 4 and r[0].strip() and r[2].strip():
-                  mc = r[0].strip()
-                  if mc not in cm:
-                      cm[mc] = {'label': r[1].strip(), 'subs': []}
-                  cm[mc]['subs'].append({'code': r[2].strip(), 'label': r[3].strip(), 'desc': r[4].strip() if len(r) > 4 else ''})
+              if len(r) < 4: continue
+              mc = r[0].strip()
+              ml = r[1].strip()
+              sc = r[2].strip()
+              sl = r[3].strip()
+              desc = r[4].strip() if len(r) > 4 else ''
+              # 合併儲存格：A欄空白時沿用上一個大類
+              if mc:
+                  last_mc = mc
+                  last_ml = ml
+              else:
+                  mc = last_mc
+                  ml = last_ml
+              if not mc or not sc: continue
+              if mc not in cm:
+                  cm[mc] = {'label': ml, 'subs': []}
+              cm[mc]['subs'].append({'code': sc, 'label': sl, 'desc': desc})
 
+          # 廠商歷史名冊
           vd = {}
           for r in rows('v.csv'):
               if len(r) < 4: continue
-              t, n, g = r[2].strip(), r[3].strip(), r[4].strip() if len(r) > 4 else ''
-              s = r[14].strip() if len(r) > 14 else '正常'
+              t  = r[2].strip() if len(r) > 2 else ''
+              n  = r[3].strip() if len(r) > 3 else ''
+              g  = r[4].strip() if len(r) > 4 else ''
+              s  = r[14].strip() if len(r) > 14 else '正常'
               if not n or not t or s == '停用': continue
               if t not in vd: vd[t] = []
               vd[t].append({'id': r[0].strip(), 'name': n, 'grade': g, 'type': r[1].strip()})
