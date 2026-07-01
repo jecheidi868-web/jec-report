@@ -269,6 +269,123 @@
     }
   },
   "vendors": {
+    "地磚/窗簾": [
+      {
+        "id": "JEC-V023",
+        "name": "簡約室內裝潢工坊",
+        "grade": "A",
+        "type": "小包工程商",
+        "weight": 1
+      }
+    ],
+    "壁紙窗簾": [
+      {
+        "id": "JEC-V106",
+        "name": "誠樂藝術傢飾",
+        "grade": "A",
+        "type": "小包工程商",
+        "weight": 1
+      }
+    ],
+    "廣告輸出": [
+      {
+        "id": "JEC-V035",
+        "name": "華達廣告有限公司",
+        "grade": "A",
+        "type": "小包工程商",
+        "weight": 1
+      },
+      {
+        "id": "JEC-V025",
+        "name": "威達廣告企業社",
+        "grade": "C",
+        "type": "小包工程商",
+        "weight": 999
+      }
+    ],
+    "水電": [
+      {
+        "id": "JEC-V030",
+        "name": "晨展工程有限公司",
+        "grade": "A",
+        "type": "小包工程商",
+        "weight": 1
+      },
+      {
+        "id": "JEC-V031",
+        "name": "晨益工程有限公司(水電)",
+        "grade": "A",
+        "type": "小包工程商",
+        "weight": 999
+      },
+      {
+        "id": "JEC-V110",
+        "name": "楊明翰(個人戶)",
+        "grade": "A",
+        "type": "小包工程商",
+        "weight": 999
+      },
+      {
+        "id": "JEC-V091",
+        "name": "秉鋒工程有限公司",
+        "grade": "A",
+        "type": "小包工程商",
+        "weight": 999
+      },
+      {
+        "id": "JEC-V087",
+        "name": "見華工程有限公司",
+        "grade": "D",
+        "type": "小包工程商",
+        "weight": 999
+      }
+    ],
+    "水電小包": [
+      {
+        "id": "JEC-V145",
+        "name": "凱新水電",
+        "grade": "A",
+        "type": "小包工程商",
+        "weight": 1
+      },
+      {
+        "id": "JEC-V146",
+        "name": "晧允水電工程行",
+        "grade": "A",
+        "type": "小包工程商",
+        "weight": 999
+      },
+      {
+        "id": "JEC-V147",
+        "name": "猩猩水電有限公司",
+        "grade": "A",
+        "type": "小包工程商",
+        "weight": 999
+      }
+    ],
+    "清潔": [
+      {
+        "id": "JEC-V047",
+        "name": "晶城環保服務有限公司",
+        "grade": "A",
+        "type": "小包工程商",
+        "weight": 1
+      },
+      {
+        "id": "JEC-V098",
+        "name": "維維工程行",
+        "grade": "A",
+        "type": "小包工程商",
+        "weight": 1
+      },
+      {
+        "id": "JEC-V113",
+        "name": "良辰清潔工作室",
+        "grade": "A",
+        "type": "小包工程商",
+        "weight": 2
+      }
+    ],
     "系統櫃": [
       {
         "id": "JEC-V158",
@@ -318,6 +435,1412 @@
         "grade": "C",
         "type": "小包工程商",
         "weight": 2
+      }
+    ],
+    "IT": [
+      {
+        "id": "JEC-V049",
+        "name": "創合服務有限公司",
+        "grade": "A",
+        "type": "小包工程商",
+        "weight": 999
+      }
+    ],
+    "PCM": [
+      {
+        "id": "JEC-V018",
+        "name": "後設思決創意工作室",
+        "grade": "B",
+        "type": "小包工程商",
+        "weight": 999
+      },
+      {
+        "id": "JEC-V026",
+        "name": "樹屋室內裝修設計有限公司",
+        "grade": "A",
+        "type": "小包工程商",
+        "weight": 999
+      },
+      {
+        "id": "JEC-V046",
+        "name": "羽筑空間設計工程行",
+        "grade": "D",
+        "type": "小包工程商",
+        "weight": 999
+      }
+    ],
+    "SKETCH UP": [
+      {
+        "id": "JEC-V029",
+        "name": "幾何資訊有限公司",
+        "grade": "A",
+        "type": "小包工程商",
+        "weight": 999
+      }
+    ],
+    "人造石": [
+      {
+        "id": "JEC-V080",
+        "name": "傑立國際實業有限公司",
+        "grade": "A",
+        "type": "小包工程商",
+        "weight": 999
+      },
+      {
+        "id": "JEC-V190",
+        "name": "力晶石材",
+        "grade": "A",
+        "type": "材料設備商",
+        "weight": 999
+      },
+      {
+        "id": "JEC-V191",
+        "name": "誠德國際",
+        "grade": "A",
+        "type": "材料設備商",
+        "weight": 999
+      },
+      {
+        "id": "JEC-V192",
+        "name": "鑫石代",
+        "grade": "A",
+        "type": "材料設備商",
+        "weight": 999
+      },
+      {
+        "id": "JEC-V120",
+        "name": "鴻銘石材",
+        "grade": "A",
+        "type": "小包工程商",
+        "weight": 999
+      }
+    ],
+    "仿石材": [
+      {
+        "id": "JEC-V188",
+        "name": "美綠建材",
+        "grade": "A",
+        "type": "材料設備商",
+        "weight": 999
+      }
+    ],
+    "保護工程": [
+      {
+        "id": "JEC-V161",
+        "name": "國安裝潢保護工程",
+        "grade": "B",
+        "type": "小包工程商",
+        "weight": 999
+      }
+    ],
+    "倉儲設備": [
+      {
+        "id": "JEC-V213",
+        "name": "松柏倉儲設備有限公司",
+        "grade": "A",
+        "type": "材料設備商",
+        "weight": 999
+      },
+      {
+        "id": "JEC-V214",
+        "name": "蓮宬倉儲",
+        "grade": "A",
+        "type": "材料設備商",
+        "weight": 999
+      }
+    ],
+    "冷氣": [
+      {
+        "id": "JEC-V070",
+        "name": "上竑冷凍空調工程有限公司",
+        "grade": "A",
+        "type": "小包工程商",
+        "weight": 999
+      }
+    ],
+    "噴塗機": [
+      {
+        "id": "JEC-V245",
+        "name": "全烽",
+        "grade": "D",
+        "type": "材料設備商",
+        "weight": 999
+      }
+    ],
+    "地板": [
+      {
+        "id": "JEC-V287",
+        "name": "伊諾華/INOVAR",
+        "grade": "",
+        "type": "材料設備商",
+        "weight": 999
+      }
+    ],
+    "地毯": [
+      {
+        "id": "JEC-V291",
+        "name": "台化地毯股份有限公司",
+        "grade": "",
+        "type": "材料設備商",
+        "weight": 999
+      },
+      {
+        "id": "JEC-V015",
+        "name": "波龍藝術有限公司",
+        "grade": "B",
+        "type": "小包工程商",
+        "weight": 999
+      }
+    ],
+    "家具": [
+      {
+        "id": "JEC-V052",
+        "name": "佐驊家具工程有限公司",
+        "grade": "B",
+        "type": "小包工程商",
+        "weight": 999
+      },
+      {
+        "id": "JEC-V007",
+        "name": "光悅制作傢飾有限公司",
+        "grade": "A",
+        "type": "小包工程商",
+        "weight": 999
+      },
+      {
+        "id": "JEC-V003",
+        "name": "台灣積體家具股份有限公司",
+        "grade": "A",
+        "type": "小包工程商",
+        "weight": 999
+      },
+      {
+        "id": "JEC-V002",
+        "name": "萬炘興業有限公司",
+        "grade": "A",
+        "type": "小包工程商",
+        "weight": 999
+      },
+      {
+        "id": "JEC-V017",
+        "name": "集思家具設計有限公司",
+        "grade": "A",
+        "type": "小包工程商",
+        "weight": 999
+      },
+      {
+        "id": "JEC-V057",
+        "name": "頂尖智能家具有限公司",
+        "grade": "A",
+        "type": "小包工程商",
+        "weight": 999
+      }
+    ],
+    "家居採購平台": [
+      {
+        "id": "JEC-V289",
+        "name": "和穎國際",
+        "grade": "",
+        "type": "材料設備商",
+        "weight": 999
+      }
+    ],
+    "家電": [
+      {
+        "id": "JEC-V066",
+        "name": "恆隆行貿易股份有限公司",
+        "grade": "A",
+        "type": "小包工程商",
+        "weight": 999
+      }
+    ],
+    "實木皮": [
+      {
+        "id": "JEC-V196",
+        "name": "宏芳木業",
+        "grade": "A",
+        "type": "材料設備商",
+        "weight": 999
+      }
+    ],
+    "廚具五金": [
+      {
+        "id": "JEC-V228",
+        "name": "佳飾美",
+        "grade": "A",
+        "type": "材料設備商",
+        "weight": 999
+      }
+    ],
+    "廢棄物": [
+      {
+        "id": "JEC-V099",
+        "name": "佺富企業社",
+        "grade": "C",
+        "type": "小包工程商",
+        "weight": 999
+      }
+    ],
+    "弱電": [
+      {
+        "id": "JEC-V005",
+        "name": "大葉通信科技有限公司",
+        "grade": "A",
+        "type": "小包工程商",
+        "weight": 999
+      },
+      {
+        "id": "JEC-V065",
+        "name": "新忠龍企業有限公司",
+        "grade": "C",
+        "type": "小包工程商",
+        "weight": 999
+      },
+      {
+        "id": "JEC-V105",
+        "name": "金昌通信工程行",
+        "grade": "A",
+        "type": "小包工程商",
+        "weight": 999
+      }
+    ],
+    "弱電小包": [
+      {
+        "id": "JEC-V149",
+        "name": "豐億通訊企業有限公司",
+        "grade": "A",
+        "type": "小包工程商",
+        "weight": 999
+      },
+      {
+        "id": "JEC-V150",
+        "name": "錦寓有限公司",
+        "grade": "A",
+        "type": "小包工程商",
+        "weight": 999
+      }
+    ],
+    "影印機": [
+      {
+        "id": "JEC-V006",
+        "name": "瑞克數位科技有限公司",
+        "grade": "",
+        "type": "小包工程商",
+        "weight": 999
+      }
+    ],
+    "影音設備": [
+      {
+        "id": "JEC-V069",
+        "name": "青田系統科技有限公司",
+        "grade": "A",
+        "type": "小包工程商",
+        "weight": 999
+      }
+    ],
+    "微笑PP板": [
+      {
+        "id": "JEC-V198",
+        "name": "眾楠",
+        "grade": "A",
+        "type": "材料設備商",
+        "weight": 999
+      }
+    ],
+    "拆除清運": [
+      {
+        "id": "JEC-V112",
+        "name": "品程環保企業有限公司",
+        "grade": "A",
+        "type": "小包工程商",
+        "weight": 999
+      },
+      {
+        "id": "JEC-V115",
+        "name": "騰越工程行",
+        "grade": "A",
+        "type": "小包工程商",
+        "weight": 999
+      }
+    ],
+    "拆除清運清潔": [
+      {
+        "id": "JEC-V123",
+        "name": "右霖企業社",
+        "grade": "A",
+        "type": "小包工程商",
+        "weight": 999
+      }
+    ],
+    "排水設備": [
+      {
+        "id": "JEC-V282",
+        "name": "山水城環境科技有限公司",
+        "grade": "",
+        "type": "材料設備商",
+        "weight": 999
+      }
+    ],
+    "搗擺": [
+      {
+        "id": "JEC-V097",
+        "name": "展煌工程實業股份有限公司",
+        "grade": "B",
+        "type": "小包工程商",
+        "weight": 999
+      }
+    ],
+    "搬家公司": [
+      {
+        "id": "JEC-V071",
+        "name": "天沅交通有限公司",
+        "grade": "A",
+        "type": "小包工程商",
+        "weight": 999
+      }
+    ],
+    "攝影": [
+      {
+        "id": "JEC-V084",
+        "name": "飾城傢飾藝術有限公司",
+        "grade": "A",
+        "type": "小包工程商",
+        "weight": 999
+      }
+    ],
+    "木作": [
+      {
+        "id": "JEC-V109",
+        "name": "玉豐裝潢設計有限公司",
+        "grade": "A",
+        "type": "小包工程商",
+        "weight": 999
+      }
+    ],
+    "木工": [
+      {
+        "id": "JEC-V086",
+        "name": "大城工程行",
+        "grade": "B",
+        "type": "小包工程商",
+        "weight": 999
+      },
+      {
+        "id": "JEC-V100",
+        "name": "岳朕工程行",
+        "grade": "B",
+        "type": "小包工程商",
+        "weight": 999
+      },
+      {
+        "id": "JEC-V108",
+        "name": "成室設計裝潢工程行",
+        "grade": "D",
+        "type": "小包工程商",
+        "weight": 999
+      },
+      {
+        "id": "JEC-V074",
+        "name": "瓏晟設計工程有限公司",
+        "grade": "B",
+        "type": "小包工程商",
+        "weight": 999
+      },
+      {
+        "id": "JEC-V048",
+        "name": "進展木材行",
+        "grade": "D",
+        "type": "小包工程商",
+        "weight": 999
+      }
+    ],
+    "木皮": [
+      {
+        "id": "JEC-V234",
+        "name": "科彰",
+        "grade": "B",
+        "type": "材料設備商",
+        "weight": 999
+      }
+    ],
+    "植栽牆": [
+      {
+        "id": "JEC-V009",
+        "name": "馥綠壇企業有限公司",
+        "grade": "B",
+        "type": "小包工程商",
+        "weight": 999
+      }
+    ],
+    "樓梯扶手": [
+      {
+        "id": "JEC-V160",
+        "name": "東方風",
+        "grade": "A",
+        "type": "小包工程商",
+        "weight": 999
+      }
+    ],
+    "機電小包-水": [
+      {
+        "id": "JEC-V148",
+        "name": "江鋮機電工程股份有限公司",
+        "grade": "B",
+        "type": "小包工程商",
+        "weight": 999
+      }
+    ],
+    "氣密窗": [
+      {
+        "id": "JEC-V293",
+        "name": "鵝牌科技有限公司",
+        "grade": "",
+        "type": "材料設備商",
+        "weight": 999
+      }
+    ],
+    "油漆": [
+      {
+        "id": "JEC-V140",
+        "name": "侑宸油漆",
+        "grade": "A",
+        "type": "小包工程商",
+        "weight": 999
+      },
+      {
+        "id": "JEC-V104",
+        "name": "全崴工程有限公司",
+        "grade": "A",
+        "type": "小包工程商",
+        "weight": 999
+      },
+      {
+        "id": "JEC-V092",
+        "name": "煥彩工程行",
+        "grade": "B",
+        "type": "小包工程商",
+        "weight": 999
+      },
+      {
+        "id": "JEC-V128",
+        "name": "育昌油漆工程",
+        "grade": "B",
+        "type": "小包工程商",
+        "weight": 999
+      },
+      {
+        "id": "JEC-V043",
+        "name": "良益油漆工程行",
+        "grade": "B",
+        "type": "小包工程商",
+        "weight": 999
+      },
+      {
+        "id": "JEC-V038",
+        "name": "誠豪油漆工程行",
+        "grade": "A",
+        "type": "小包工程商",
+        "weight": 999
+      }
+    ],
+    "油漆材料": [
+      {
+        "id": "JEC-V243",
+        "name": "LUXUS PAINT 富耀企業",
+        "grade": "B",
+        "type": "材料設備商",
+        "weight": 999
+      },
+      {
+        "id": "JEC-V181",
+        "name": "慶大（萬大）",
+        "grade": "A",
+        "type": "材料設備商",
+        "weight": 999
+      },
+      {
+        "id": "JEC-V183",
+        "name": "晨炘室內裝修工程有限公司",
+        "grade": "A",
+        "type": "材料設備商",
+        "weight": 999
+      },
+      {
+        "id": "JEC-V182",
+        "name": "萬大",
+        "grade": "A",
+        "type": "材料設備商",
+        "weight": 999
+      },
+      {
+        "id": "JEC-V184",
+        "name": "金觀塗裝 石頭漆",
+        "grade": "A",
+        "type": "材料設備商",
+        "weight": 999
+      }
+    ],
+    "泥作": [
+      {
+        "id": "JEC-V013",
+        "name": "昱盛工程行",
+        "grade": "C",
+        "type": "小包工程商",
+        "weight": 999
+      },
+      {
+        "id": "JEC-V102",
+        "name": "龍威開發有限公司",
+        "grade": "A",
+        "type": "小包工程商",
+        "weight": 999
+      }
+    ],
+    "活動隔間": [
+      {
+        "id": "JEC-V075",
+        "name": "強盛家室內裝修有限公司",
+        "grade": "A",
+        "type": "小包工程商",
+        "weight": 999
+      }
+    ],
+    "消防": [
+      {
+        "id": "JEC-V068",
+        "name": "億富消防有限公司",
+        "grade": "A",
+        "type": "小包工程商",
+        "weight": 999
+      },
+      {
+        "id": "JEC-V028",
+        "name": "國介企業有限公司",
+        "grade": "B",
+        "type": "小包工程商",
+        "weight": 999
+      },
+      {
+        "id": "JEC-V116",
+        "name": "玉全消防機電有限公司",
+        "grade": "A",
+        "type": "小包工程商",
+        "weight": 999
+      }
+    ],
+    "消防保溫材": [
+      {
+        "id": "JEC-V221",
+        "name": "皇慶保溫企業有限公司",
+        "grade": "A",
+        "type": "材料設備商",
+        "weight": 999
+      }
+    ],
+    "消防小包": [
+      {
+        "id": "JEC-V151",
+        "name": "宏穎材料有限公司",
+        "grade": "A",
+        "type": "小包工程商",
+        "weight": 999
+      },
+      {
+        "id": "JEC-V152",
+        "name": "連富消防工程有限公司",
+        "grade": "A",
+        "type": "小包工程商",
+        "weight": 999
+      }
+    ],
+    "淨水器": [
+      {
+        "id": "JEC-V021",
+        "name": "千山淨水股份有限公司",
+        "grade": "B",
+        "type": "小包工程商",
+        "weight": 999
+      }
+    ],
+    "熱水器": [
+      {
+        "id": "JEC-V067",
+        "name": "金展廚具有限公司(電熱水器)",
+        "grade": "B",
+        "type": "小包工程商",
+        "weight": 999
+      }
+    ],
+    "燈具": [
+      {
+        "id": "JEC-V154",
+        "name": "上巨光電股份有限公司",
+        "grade": "A",
+        "type": "小包工程商",
+        "weight": 999
+      },
+      {
+        "id": "JEC-V285",
+        "name": "伍禾股份有限公司",
+        "grade": "",
+        "type": "材料設備商",
+        "weight": 999
+      },
+      {
+        "id": "JEC-V155",
+        "name": "可杰科技有限公司",
+        "grade": "A",
+        "type": "小包工程商",
+        "weight": 999
+      },
+      {
+        "id": "JEC-V056",
+        "name": "奇恩舖子有限公司",
+        "grade": "A",
+        "type": "小包工程商",
+        "weight": 999
+      },
+      {
+        "id": "JEC-V063",
+        "name": "宜宬光電有限公司",
+        "grade": "A",
+        "type": "小包工程商",
+        "weight": 999
+      },
+      {
+        "id": "JEC-V081",
+        "name": "恆輝光照有限公司",
+        "grade": "B",
+        "type": "小包工程商",
+        "weight": 999
+      },
+      {
+        "id": "JEC-V076",
+        "name": "華彩光電有限公司",
+        "grade": "C",
+        "type": "小包工程商",
+        "weight": 999
+      },
+      {
+        "id": "JEC-V295",
+        "name": "開拓科技有限公司",
+        "grade": "",
+        "type": "材料設備商",
+        "weight": 999
+      }
+    ],
+    "燈具/照明": [
+      {
+        "id": "JEC-V212",
+        "name": "麟亞企業有限公司",
+        "grade": "A",
+        "type": "材料設備商",
+        "weight": 999
+      }
+    ],
+    "燈飾": [
+      {
+        "id": "JEC-V089",
+        "name": "YP燈飾-御品科技有限公司",
+        "grade": "A",
+        "type": "小包工程商",
+        "weight": 999
+      },
+      {
+        "id": "JEC-V040",
+        "name": "鳳之企業社(大中燈飾)",
+        "grade": "B",
+        "type": "小包工程商",
+        "weight": 999
+      }
+    ],
+    "特氣工程": [
+      {
+        "id": "JEC-V117",
+        "name": "傑盟科技工程股份有限公司",
+        "grade": "A",
+        "type": "小包工程商",
+        "weight": 999
+      }
+    ],
+    "玻璃": [
+      {
+        "id": "JEC-V001",
+        "name": "億達玻璃工程行",
+        "grade": "A",
+        "type": "小包工程商",
+        "weight": 999
+      },
+      {
+        "id": "JEC-V033",
+        "name": "友泰京玻璃有限公司",
+        "grade": "B",
+        "type": "小包工程商",
+        "weight": 999
+      },
+      {
+        "id": "JEC-V103",
+        "name": "專利企業社",
+        "grade": "A",
+        "type": "小包工程商",
+        "weight": 999
+      }
+    ],
+    "石材": [
+      {
+        "id": "JEC-V284",
+        "name": "UESTONE",
+        "grade": "",
+        "type": "材料設備商",
+        "weight": 999
+      }
+    ],
+    "砂紙": [
+      {
+        "id": "JEC-V220",
+        "name": "振洋行",
+        "grade": "A",
+        "type": "材料設備商",
+        "weight": 999
+      }
+    ],
+    "磁磚": [
+      {
+        "id": "JEC-V169",
+        "name": "LULU磁磚",
+        "grade": "A",
+        "type": "材料設備商",
+        "weight": 999
+      },
+      {
+        "id": "JEC-V163",
+        "name": "亞竺",
+        "grade": "A",
+        "type": "材料設備商",
+        "weight": 999
+      },
+      {
+        "id": "JEC-V170",
+        "name": "佐禾",
+        "grade": "A",
+        "type": "材料設備商",
+        "weight": 999
+      },
+      {
+        "id": "JEC-V167",
+        "name": "冠軍磁磚（豐宇旺）",
+        "grade": "A",
+        "type": "材料設備商",
+        "weight": 999
+      },
+      {
+        "id": "JEC-V164",
+        "name": "台灣瑪摩",
+        "grade": "A",
+        "type": "材料設備商",
+        "weight": 999
+      },
+      {
+        "id": "JEC-V172",
+        "name": "和均建材（亞德士經銷)",
+        "grade": "A",
+        "type": "材料設備商",
+        "weight": 999
+      },
+      {
+        "id": "JEC-V171",
+        "name": "德國亞德士",
+        "grade": "A",
+        "type": "材料設備商",
+        "weight": 999
+      },
+      {
+        "id": "JEC-V168",
+        "name": "曹碩磁磚",
+        "grade": "A",
+        "type": "材料設備商",
+        "weight": 999
+      },
+      {
+        "id": "JEC-V072",
+        "name": "漢樺企業股份有限公司",
+        "grade": "B",
+        "type": "小包工程商",
+        "weight": 999
+      },
+      {
+        "id": "JEC-V165",
+        "name": "白馬磁磚（盛業建材）",
+        "grade": "A",
+        "type": "材料設備商",
+        "weight": 999
+      },
+      {
+        "id": "JEC-V088",
+        "name": "百事得實業有限公司",
+        "grade": "B",
+        "type": "小包工程商",
+        "weight": 999
+      },
+      {
+        "id": "JEC-V166",
+        "name": "羅特麗",
+        "grade": "A",
+        "type": "材料設備商",
+        "weight": 999
+      },
+      {
+        "id": "JEC-V044",
+        "name": "翔紳股份有限公司",
+        "grade": "A",
+        "type": "小包工程商",
+        "weight": 999
+      }
+    ],
+    "空調": [
+      {
+        "id": "JEC-V039",
+        "name": "沅展空調工程有限公司",
+        "grade": "C",
+        "type": "小包工程商",
+        "weight": 999
+      },
+      {
+        "id": "JEC-V045",
+        "name": "申升企業有限公司",
+        "grade": "B",
+        "type": "小包工程商",
+        "weight": 999
+      }
+    ],
+    "空調小包": [
+      {
+        "id": "JEC-V141",
+        "name": "世進冷氣",
+        "grade": "A",
+        "type": "小包工程商",
+        "weight": 999
+      },
+      {
+        "id": "JEC-V142",
+        "name": "佳誠冷氣空調有限公司",
+        "grade": "A",
+        "type": "小包工程商",
+        "weight": 999
+      },
+      {
+        "id": "JEC-V143",
+        "name": "冠崴空調",
+        "grade": "A",
+        "type": "小包工程商",
+        "weight": 999
+      }
+    ],
+    "空調材料": [
+      {
+        "id": "JEC-V144",
+        "name": "富陞冷氣空調",
+        "grade": "A",
+        "type": "小包工程商",
+        "weight": 999
+      }
+    ],
+    "窗飾": [
+      {
+        "id": "JEC-V286",
+        "name": "慶豐富實業股份有限公司",
+        "grade": "",
+        "type": "材料設備商",
+        "weight": 999
+      }
+    ],
+    "細鋁框": [
+      {
+        "id": "JEC-V020",
+        "name": "北二高實業有限公司",
+        "grade": "B",
+        "type": "小包工程商",
+        "weight": 999
+      },
+      {
+        "id": "JEC-V034",
+        "name": "錦宥實業有限公司",
+        "grade": "A",
+        "type": "小包工程商",
+        "weight": 999
+      }
+    ],
+    "美耐板": [
+      {
+        "id": "JEC-V194",
+        "name": "絕雅-樂美特",
+        "grade": "A",
+        "type": "材料設備商",
+        "weight": 999
+      }
+    ],
+    "膠帶": [
+      {
+        "id": "JEC-V218",
+        "name": "奇星膠帶（睿進企業）",
+        "grade": "A",
+        "type": "材料設備商",
+        "weight": 999
+      },
+      {
+        "id": "JEC-V219",
+        "name": "建鎮膠帶",
+        "grade": "A",
+        "type": "材料設備商",
+        "weight": 999
+      }
+    ],
+    "臭氧機": [
+      {
+        "id": "JEC-V010",
+        "name": "孚巨環境科技股份有限公司",
+        "grade": "C",
+        "type": "小包工程商",
+        "weight": 999
+      }
+    ],
+    "藝術漆": [
+      {
+        "id": "JEC-V042",
+        "name": "耘角居家有限公司",
+        "grade": "B",
+        "type": "小包工程商",
+        "weight": 999
+      }
+    ],
+    "藝術門（後製門）": [
+      {
+        "id": "JEC-V159",
+        "name": "豐彩藝術股份有限公司",
+        "grade": "A",
+        "type": "小包工程商",
+        "weight": 999
+      }
+    ],
+    "藤製品": [
+      {
+        "id": "JEC-V189",
+        "name": "藤工匠維修",
+        "grade": "A",
+        "type": "材料設備商",
+        "weight": 999
+      }
+    ],
+    "蝴蝶籠": [
+      {
+        "id": "JEC-V215",
+        "name": "信奕工業",
+        "grade": "A",
+        "type": "材料設備商",
+        "weight": 999
+      }
+    ],
+    "衛浴": [
+      {
+        "id": "JEC-V244",
+        "name": "南電光",
+        "grade": "C",
+        "type": "材料設備商",
+        "weight": 999
+      },
+      {
+        "id": "JEC-V012",
+        "name": "奧德美企業有限公司",
+        "grade": "B",
+        "type": "小包工程商",
+        "weight": 999
+      },
+      {
+        "id": "JEC-V011",
+        "name": "川富實業有限公司",
+        "grade": "A",
+        "type": "小包工程商",
+        "weight": 999
+      },
+      {
+        "id": "JEC-V230",
+        "name": "摩登衛浴（台中經銷）",
+        "grade": "B",
+        "type": "材料設備商",
+        "weight": 999
+      },
+      {
+        "id": "JEC-V210",
+        "name": "旭昌",
+        "grade": "A",
+        "type": "材料設備商",
+        "weight": 999
+      },
+      {
+        "id": "JEC-V231",
+        "name": "春百億",
+        "grade": "B",
+        "type": "材料設備商",
+        "weight": 999
+      },
+      {
+        "id": "JEC-V211",
+        "name": "東京衛浴",
+        "grade": "A",
+        "type": "材料設備商",
+        "weight": 999
+      },
+      {
+        "id": "JEC-V209",
+        "name": "羅力衛浴（KOHLER)",
+        "grade": "A",
+        "type": "材料設備商",
+        "weight": 999
+      },
+      {
+        "id": "JEC-V229",
+        "name": "羅馬衛浴",
+        "grade": "B",
+        "type": "材料設備商",
+        "weight": 999
+      }
+    ],
+    "裝修": [
+      {
+        "id": "JEC-V090",
+        "name": "老虎實業有限公司",
+        "grade": "B",
+        "type": "小包工程商",
+        "weight": 999
+      }
+    ],
+    "裝修基材": [
+      {
+        "id": "JEC-V232",
+        "name": "大興建材",
+        "grade": "B",
+        "type": "材料設備商",
+        "weight": 999
+      },
+      {
+        "id": "JEC-V206",
+        "name": "巨高興業",
+        "grade": "A",
+        "type": "材料設備商",
+        "weight": 999
+      },
+      {
+        "id": "JEC-V207",
+        "name": "振鴻建材行",
+        "grade": "A",
+        "type": "材料設備商",
+        "weight": 999
+      }
+    ],
+    "裝潢五金": [
+      {
+        "id": "JEC-V288",
+        "name": "勝鋒裝潢五金有限公司",
+        "grade": "",
+        "type": "材料設備商",
+        "weight": 999
+      },
+      {
+        "id": "JEC-V235",
+        "name": "東裕五金",
+        "grade": "B",
+        "type": "材料設備商",
+        "weight": 999
+      },
+      {
+        "id": "JEC-V202",
+        "name": "毅鴻五金",
+        "grade": "A",
+        "type": "材料設備商",
+        "weight": 999
+      },
+      {
+        "id": "JEC-V236",
+        "name": "皇嘉五金行",
+        "grade": "B",
+        "type": "材料設備商",
+        "weight": 999
+      },
+      {
+        "id": "JEC-V237",
+        "name": "笠玠",
+        "grade": "B",
+        "type": "材料設備商",
+        "weight": 999
+      }
+    ],
+    "裝潢建材": [
+      {
+        "id": "JEC-V208",
+        "name": "新益建材",
+        "grade": "A",
+        "type": "材料設備商",
+        "weight": 999
+      }
+    ],
+    "裝飾建材": [
+      {
+        "id": "JEC-V283",
+        "name": "巨高興業股份有限公司",
+        "grade": "",
+        "type": "材料設備商",
+        "weight": 999
+      }
+    ],
+    "角鋼": [
+      {
+        "id": "JEC-V082",
+        "name": "科傑五金有限公司",
+        "grade": "A",
+        "type": "小包工程商",
+        "weight": 999
+      },
+      {
+        "id": "JEC-V094",
+        "name": "萬建(角鋼)",
+        "grade": "A",
+        "type": "小包工程商",
+        "weight": 999
+      }
+    ],
+    "貨架": [
+      {
+        "id": "JEC-V079",
+        "name": "能率倉儲設備股份有限公司",
+        "grade": "A",
+        "type": "小包工程商",
+        "weight": 999
+      }
+    ],
+    "貼膜": [
+      {
+        "id": "JEC-V060",
+        "name": "上益玻璃工程有限公司",
+        "grade": "A",
+        "type": "小包工程商",
+        "weight": 999
+      },
+      {
+        "id": "JEC-V107",
+        "name": "米樂國際室裝貼膜",
+        "grade": "A",
+        "type": "小包工程商",
+        "weight": 999
+      },
+      {
+        "id": "JEC-V051",
+        "name": "達冠專業玻璃貼膜企業社",
+        "grade": "B",
+        "type": "小包工程商",
+        "weight": 999
+      }
+    ],
+    "踢腳板": [
+      {
+        "id": "JEC-V077",
+        "name": "五上有限公司",
+        "grade": "A",
+        "type": "小包工程商",
+        "weight": 999
+      }
+    ],
+    "輕隔間": [
+      {
+        "id": "JEC-V059",
+        "name": "建佑裝潢工程行",
+        "grade": "C",
+        "type": "小包工程商",
+        "weight": 999
+      },
+      {
+        "id": "JEC-V062",
+        "name": "祥承工程行",
+        "grade": "A",
+        "type": "小包工程商",
+        "weight": 999
+      },
+      {
+        "id": "JEC-V041",
+        "name": "貿盛企業社",
+        "grade": "B",
+        "type": "小包工程商",
+        "weight": 999
+      }
+    ],
+    "輪軸放線架": [
+      {
+        "id": "JEC-V226",
+        "name": "欣華企業",
+        "grade": "A",
+        "type": "材料設備商",
+        "weight": 999
+      }
+    ],
+    "辦公家具": [
+      {
+        "id": "JEC-V138",
+        "name": "BACKBONE班朋",
+        "grade": "A",
+        "type": "小包工程商",
+        "weight": 999
+      },
+      {
+        "id": "JEC-V037",
+        "name": "國靖家具裝潢有限公司",
+        "grade": "B",
+        "type": "小包工程商",
+        "weight": 999
+      },
+      {
+        "id": "JEC-V027",
+        "name": "復興股份有限公司",
+        "grade": "A",
+        "type": "小包工程商",
+        "weight": 999
+      },
+      {
+        "id": "JEC-V032",
+        "name": "新思國際股份有限公司",
+        "grade": "A",
+        "type": "小包工程商",
+        "weight": 999
+      },
+      {
+        "id": "JEC-V064",
+        "name": "新旺辦公家具有限公司",
+        "grade": "D",
+        "type": "小包工程商",
+        "weight": 999
+      },
+      {
+        "id": "JEC-V078",
+        "name": "理式股份有限公司",
+        "grade": "B",
+        "type": "小包工程商",
+        "weight": 999
+      }
+    ],
+    "鋁梯": [
+      {
+        "id": "JEC-V240",
+        "name": "日登鋁梯",
+        "grade": "B",
+        "type": "材料設備商",
+        "weight": 999
+      }
+    ],
+    "鋁門窗": [
+      {
+        "id": "JEC-V053",
+        "name": "金風昌股份有限公司",
+        "grade": "B",
+        "type": "小包工程商",
+        "weight": 999
+      },
+      {
+        "id": "JEC-V024",
+        "name": "閎固鋁窗企業行",
+        "grade": "C",
+        "type": "小包工程商",
+        "weight": 999
+      },
+      {
+        "id": "JEC-V054",
+        "name": "風盛國際實業有限公司",
+        "grade": "B",
+        "type": "小包工程商",
+        "weight": 999
+      }
+    ],
+    "鐵工": [
+      {
+        "id": "JEC-V093",
+        "name": "向豪工程行",
+        "grade": "B",
+        "type": "小包工程商",
+        "weight": 999
+      },
+      {
+        "id": "JEC-V004",
+        "name": "立志工程行",
+        "grade": "A",
+        "type": "小包工程商",
+        "weight": 999
+      }
+    ],
+    "鐵工（鐵門）": [
+      {
+        "id": "JEC-V129",
+        "name": "鴻霖門窗工程行",
+        "grade": "A",
+        "type": "小包工程商",
+        "weight": 999
+      }
+    ],
+    "隔熱紙": [
+      {
+        "id": "JEC-V008",
+        "name": "寶鑫節能工程有限公司",
+        "grade": "B",
+        "type": "小包工程商",
+        "weight": 999
+      },
+      {
+        "id": "JEC-V073",
+        "name": "昇華隔熱紙有限公司",
+        "grade": "A",
+        "type": "小包工程商",
+        "weight": 999
+      }
+    ],
+    "隔音墊": [
+      {
+        "id": "JEC-V204",
+        "name": "碁點實業",
+        "grade": "A",
+        "type": "材料設備商",
+        "weight": 999
+      }
+    ],
+    "電動門": [
+      {
+        "id": "JEC-V095",
+        "name": "璟豪工程行",
+        "grade": "A",
+        "type": "小包工程商",
+        "weight": 999
+      }
+    ],
+    "電器": [
+      {
+        "id": "JEC-V050",
+        "name": "星緹國際有限公司",
+        "grade": "D",
+        "type": "小包工程商",
+        "weight": 999
+      }
+    ],
+    "電梯": [
+      {
+        "id": "JEC-V292",
+        "name": "好厝邊科技股份有限公司",
+        "grade": "",
+        "type": "材料設備商",
+        "weight": 999
+      }
+    ],
+    "鷹架": [
+      {
+        "id": "JEC-V121",
+        "name": "泓升工程有限公司",
+        "grade": "A",
+        "type": "小包工程商",
+        "weight": 999
       }
     ]
   },
