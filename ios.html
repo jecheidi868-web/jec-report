@@ -271,6 +271,11 @@ function onProjectChange() { document.getElementById('resultCard').classList.rem
 function onMainCategoryChange() {
   const val = document.getElementById('mainCategorySelect').value;
   selectedSub = null;
+  selectedVendor = null;
+  document.getElementById('tradeBlock').style.display = 'none';
+  document.getElementById('vendorBlock').style.display = 'none';
+  document.getElementById('tradeSelect').innerHTML = '<option value="">— 選擇工種 —</option>';
+  document.getElementById('vendorSelect').innerHTML = '<option value="">— 選擇廠商 —</option>';
   document.getElementById('resultCard').classList.remove('visible');
   if (!val || !categoryMap[val]) { document.getElementById('subBlock').classList.remove('visible'); return; }
   const cat = categoryMap[val];
@@ -289,7 +294,43 @@ function selectSub(code, label, el) {
   document.querySelectorAll('.sub-btn').forEach(b => b.classList.remove('selected'));
   el.classList.add('selected');
   selectedSub = { code, label };
+  selectedVendor = null;
   document.getElementById('resultCard').classList.remove('visible');
+
+  const mainCat = document.getElementById('mainCategorySelect').value;
+  if (mainCat === 'C') {
+    const tradeSelect = document.getElementById('tradeSelect');
+    tradeSelect.innerHTML = '<option value="">— 選擇工種 —</option>';
+    Object.keys(vendorMap).sort().forEach(trade => {
+      tradeSelect.innerHTML += `<option value="${trade}">${trade}</option>`;
+    });
+    document.getElementById('tradeBlock').style.display = 'block';
+    document.getElementById('vendorBlock').style.display = 'none';
+    document.getElementById('vendorSelect').innerHTML = '<option value="">— 選擇廠商 —</option>';
+  } else {
+    document.getElementById('tradeBlock').style.display = 'none';
+    document.getElementById('vendorBlock').style.display = 'none';
+  }
+}
+
+function onTradeChange() {
+  const trade = document.getElementById('tradeSelect').value;
+  selectedVendor = null;
+  const vendorSelect = document.getElementById('vendorSelect');
+  vendorSelect.innerHTML = '<option value="">— 選擇廠商 —</option>';
+  if (!trade || !vendorMap[trade]) {
+    document.getElementById('vendorBlock').style.display = 'none';
+    return;
+  }
+  vendorMap[trade].forEach(v => {
+    const gradeTag = v.grade ? ` [${v.grade}]` : '';
+    vendorSelect.innerHTML += `<option value="${v.name}">${v.name}${gradeTag}</option>`;
+  });
+  document.getElementById('vendorBlock').style.display = 'block';
+}
+
+function onVendorChange() {
+  selectedVendor = document.getElementById('vendorSelect').value || null;
 }
 
 function generate() {
