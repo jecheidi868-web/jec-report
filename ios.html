@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#c9a84c">
+<meta name="theme-color" content="#2d3020">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="JEC編碼">
@@ -11,72 +11,72 @@
 <title>JEC 檔案編碼小工具</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: 'Helvetica Neue', Arial, sans-serif; background: #0f0f0f; color: #f0f0f0; min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 24px 16px 80px; }
+  body { font-family: 'Helvetica Neue', Arial, sans-serif; background: #f7f5f1; color: #2d3020; min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 24px 16px 80px; }
   header { width: 100%; max-width: 480px; display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
-  .logo-mark { width: 36px; height: 36px; background: #c9a84c; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 800; color: #0f0f0f; letter-spacing: -1px; }
+  .logo-mark { width: 36px; height: 36px; background: #2d3020; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 800; color: #f7f5f1; letter-spacing: -1px; }
   .header-text h1 { font-size: 15px; font-weight: 700; letter-spacing: 0.5px; }
-  .header-text p { font-size: 11px; color: #666; margin-top: 1px; }
+  .header-text p { font-size: 11px; color: #5a5a4a; margin-top: 1px; }
 
-  .ios-install-banner { width: 100%; max-width: 480px; background: #1a1f2e; border: 1px solid #2a3a5a; border-radius: 12px; padding: 14px 16px; margin-bottom: 16px; display: none; }
+  .ios-install-banner { width: 100%; max-width: 480px; background: #e8e4d8; border: 1px solid #2d3020; border-radius: 12px; padding: 14px 16px; margin-bottom: 16px; display: none; }
   .ios-install-banner.visible { display: block; }
-  .ios-install-title { font-size: 12px; font-weight: 700; color: #6eaec8; margin-bottom: 10px; }
+  .ios-install-title { font-size: 12px; font-weight: 700; color: #2d3020; margin-bottom: 10px; }
   .ios-steps { list-style: none; }
-  .ios-steps li { font-size: 12px; color: #aaa; padding: 5px 0; display: flex; align-items: flex-start; gap: 8px; line-height: 1.5; }
-  .ios-step-num { background: #2a3a5a; color: #6eaec8; border-radius: 50%; width: 18px; height: 18px; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; flex-shrink: 0; margin-top: 1px; }
-  .ios-dismiss { margin-top: 10px; width: 100%; background: transparent; border: 1px solid #2a3a5a; border-radius: 6px; color: #555; font-size: 11px; padding: 7px; cursor: pointer; }
+  .ios-steps li { font-size: 12px; color: #6a6a5a; padding: 5px 0; display: flex; align-items: flex-start; gap: 8px; line-height: 1.5; }
+  .ios-step-num { background: #2d3020; color: #2d3020; border-radius: 50%; width: 18px; height: 18px; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+  .ios-dismiss { margin-top: 10px; width: 100%; background: transparent; border: 1px solid #2d3020; border-radius: 6px; color: #8a8a7a; font-size: 11px; padding: 7px; cursor: pointer; }
 
-  .loading-bar { width: 100%; max-width: 480px; background: #1a2a1a; border: 1px solid #2a4a2a; border-radius: 10px; padding: 14px 16px; margin-bottom: 12px; display: flex; align-items: center; gap: 10px; }
+  .loading-bar { width: 100%; max-width: 480px; background: #e8e4d8; border: 1px solid #2d3020; border-radius: 10px; padding: 14px 16px; margin-bottom: 12px; display: flex; align-items: center; gap: 10px; }
   .loading-bar.hidden { display: none; }
-  .spinner { width: 16px; height: 16px; border: 2px solid #2a4a2a; border-top-color: #7ec86e; border-radius: 50%; animation: spin 0.8s linear infinite; flex-shrink: 0; }
+  .spinner { width: 16px; height: 16px; border: 2px solid #c8c4b8; border-top-color: #2d3020; border-radius: 50%; animation: spin 0.8s linear infinite; flex-shrink: 0; }
   @keyframes spin { to { transform: rotate(360deg); } }
-  .loading-bar p { font-size: 12px; color: #7ec86e; }
+  .loading-bar p { font-size: 12px; color: #2d3020; }
 
-  .sync-info { width: 100%; max-width: 480px; font-size: 10px; color: #444; text-align: right; margin-bottom: 8px; display: none; }
+  .sync-info { width: 100%; max-width: 480px; font-size: 10px; color: #8a8a7a; text-align: right; margin-bottom: 8px; display: none; }
   .sync-info.visible { display: block; }
-  .sync-dot { color: #5a8a4a; }
+  .sync-dot { color: #2d3020; }
 
-  .card { width: 100%; max-width: 480px; background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 12px; padding: 20px; margin-bottom: 12px; }
-  .card-title { font-size: 11px; font-weight: 600; color: #c9a84c; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 14px; }
+  .card { width: 100%; max-width: 480px; background: #f0ede8; border: 1px solid #2d3020; border-radius: 12px; padding: 20px; margin-bottom: 12px; }
+  .card-title { font-size: 11px; font-weight: 600; color: #2d3020; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 14px; }
   .field-group { margin-bottom: 16px; }
   .field-group:last-child { margin-bottom: 0; }
-  label { display: block; font-size: 12px; color: #888; margin-bottom: 6px; font-weight: 500; }
-  select, input[type="text"], input[type="date"] { width: 100%; background: #111; border: 1px solid #333; border-radius: 8px; color: #f0f0f0; font-size: 14px; padding: 10px 12px; appearance: none; outline: none; transition: border-color 0.2s; }
-  select:focus, input:focus { border-color: #c9a84c; }
-  select option { background: #1a1a1a; }
+  label { display: block; font-size: 12px; color: #5a5a4a; margin-bottom: 6px; font-weight: 500; }
+  select, input[type="text"], input[type="date"] { width: 100%; background: #f0ede8; border: 1px solid #2d3020; border-radius: 8px; color: #2d3020; font-size: 14px; padding: 10px 12px; appearance: none; outline: none; transition: border-color 0.2s; }
+  select:focus, input:focus { border-color: #2d3020; }
+  select option { background: #f0ede8; }
 
-  .sub-category-block { display: none; margin-top: -8px; background: #111; border: 1px solid #2a3a2a; border-radius: 8px; padding: 10px 12px; }
+  .sub-category-block { display: none; margin-top: -8px; background: #f0ede8; border: 1px solid #2d3020; border-radius: 8px; padding: 10px 12px; }
   .sub-category-block.visible { display: block; }
-  .sub-label { font-size: 10px; color: #5a8a4a; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; font-weight: 600; }
-  .sub-btn { display: block; width: 100%; text-align: left; background: transparent; border: 1px solid #2a3a2a; border-radius: 6px; color: #aaa; font-size: 12px; padding: 8px 10px; margin-bottom: 6px; cursor: pointer; transition: all 0.15s; line-height: 1.4; }
+  .sub-label { font-size: 10px; color: #2d3020; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; font-weight: 600; }
+  .sub-btn { display: block; width: 100%; text-align: left; background: transparent; border: 1px solid #2d3020; border-radius: 6px; color: #6a6a5a; font-size: 12px; padding: 8px 10px; margin-bottom: 6px; cursor: pointer; transition: all 0.15s; line-height: 1.4; }
   .sub-btn:last-child { margin-bottom: 0; }
-  .sub-btn.selected { background: #1a3a1a; border-color: #5a8a4a; color: #7ec86e; }
-  .sub-code { font-family: 'Courier New', monospace; color: #c9a84c; font-size: 11px; }
-  .sub-desc { color: #555; font-size: 10px; margin-top: 2px; }
+  .sub-btn.selected { background: #e8e4d8; border-color: #2d3020; color: #2d3020; }
+  .sub-code { font-family: 'Courier New', monospace; color: #2d3020; font-size: 11px; }
+  .sub-desc { color: #8a8a7a; font-size: 10px; margin-top: 2px; }
 
-  .result-card { width: 100%; max-width: 480px; background: #111d0f; border: 1px solid #2a3a2a; border-radius: 12px; padding: 20px; margin-bottom: 12px; display: none; }
+  .result-card { width: 100%; max-width: 480px; background: #f0ede8; border: 1px solid #2d3020; border-radius: 12px; padding: 20px; margin-bottom: 12px; display: none; }
   .result-card.visible { display: block; }
-  .result-label { font-size: 11px; color: #5a8a4a; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 10px; font-weight: 600; }
-  .filename-display { background: #0a0a0a; border: 1px solid #2a3a2a; border-radius: 8px; padding: 12px 14px; font-size: 13px; font-family: 'Courier New', monospace; color: #7ec86e; word-break: break-all; line-height: 1.5; margin-bottom: 12px; }
-  .folder-path { font-size: 11px; color: #555; font-family: 'Courier New', monospace; margin-bottom: 16px; line-height: 1.8; }
-  .folder-path span { color: #c9a84c; }
+  .result-label { font-size: 11px; color: #2d3020; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 10px; font-weight: 600; }
+  .filename-display { background: #ebe8e2; border: 1px solid #2d3020; border-radius: 8px; padding: 12px 14px; font-size: 13px; font-family: 'Courier New', monospace; color: #2d3020; word-break: break-all; line-height: 1.5; margin-bottom: 12px; }
+  .folder-path { font-size: 11px; color: #8a8a7a; font-family: 'Courier New', monospace; margin-bottom: 16px; line-height: 1.8; }
+  .folder-path span { color: #2d3020; }
 
   .btn-row { display: flex; gap: 8px; flex-wrap: wrap; }
   .btn { flex: 1; padding: 11px; border-radius: 8px; font-size: 13px; font-weight: 600; border: none; cursor: pointer; transition: opacity 0.2s; min-width: 80px; }
   .btn:active { opacity: 0.75; }
-  .btn-secondary { background: #2a2a2a; color: #f0f0f0; border: 1px solid #3a3a3a; }
-  .btn-copy { background: #1a3a1a; color: #7ec86e; border: 1px solid #2a4a2a; }
-  .btn-share { background: #1a2a3a; color: #6eaec8; border: 1px solid #2a3a4a; }
+  .btn-secondary { background: #e0dcd4; color: #2d3020; border: 1px solid #2d3020; }
+  .btn-copy { background: #e8e4d8; color: #2d3020; border: 1px solid #2d3020; }
+  .btn-share { background: #2d3020; color: #2d3020; border: 1px solid #2d3020; }
 
-  .generate-btn { width: 100%; max-width: 480px; padding: 14px; background: #c9a84c; color: #0f0f0f; border: none; border-radius: 10px; font-size: 15px; font-weight: 700; cursor: pointer; margin-bottom: 12px; transition: opacity 0.2s; }
+  .generate-btn { width: 100%; max-width: 480px; padding: 14px; background: #2d3020; color: #f7f5f1; border: none; border-radius: 10px; font-size: 15px; font-weight: 700; cursor: pointer; margin-bottom: 12px; transition: opacity 0.2s; }
   .generate-btn:active { opacity: 0.8; }
 
-  .refresh-btn { width: 100%; max-width: 480px; background: #1a2a1a; border: 1px solid #2a4a2a; border-radius: 8px; color: #7ec86e; font-size: 12px; padding: 12px; cursor: pointer; margin-bottom: 12px; font-weight: 600; }
+  .refresh-btn { width: 100%; max-width: 480px; background: #e8e4d8; border: 1px solid #2d3020; border-radius: 8px; color: #2d3020; font-size: 12px; padding: 12px; cursor: pointer; margin-bottom: 12px; font-weight: 600; }
   .refresh-btn:active { opacity: 0.7; }
 
   .safe-bottom { height: env(safe-area-inset-bottom, 20px); }
-  .toast { position: fixed; bottom: calc(24px + env(safe-area-inset-bottom, 0px)); left: 50%; transform: translateX(-50%); background: #c9a84c; color: #0f0f0f; padding: 10px 20px; border-radius: 20px; font-size: 13px; font-weight: 600; opacity: 0; transition: opacity 0.3s; pointer-events: none; white-space: nowrap; z-index: 999; }
+  .toast { position: fixed; bottom: calc(24px + env(safe-area-inset-bottom, 0px)); left: 50%; transform: translateX(-50%); background: #2d3020; color: #f7f5f1; padding: 10px 20px; border-radius: 20px; font-size: 13px; font-weight: 600; opacity: 0; transition: opacity 0.3s; pointer-events: none; white-space: nowrap; z-index: 999; }
   .toast.show { opacity: 1; }
-  .version-note { font-size: 10px; color: #444; text-align: center; margin-top: 8px; }
+  .version-note { font-size: 10px; color: #8a8a7a; text-align: center; margin-top: 8px; }
 </style>
 </head>
 <body>
@@ -128,6 +128,20 @@
     <div class="sub-label">選擇細項</div>
     <div id="subList"></div>
   </div>
+
+  <div class="sub-category-block" id="tradeBlock" style="display:none;">
+    <div class="sub-label">選擇工種（C類）</div>
+    <select id="tradeSelect" onchange="onTradeChange()">
+      <option value="">— 選擇工種 —</option>
+    </select>
+  </div>
+
+  <div class="sub-category-block" id="vendorBlock" style="display:none;">
+    <div class="sub-label">選擇廠商（C類）</div>
+    <select id="vendorSelect" onchange="onVendorChange()">
+      <option value="">— 選擇廠商 —</option>
+    </select>
+  </div>
 </div>
 
 <div class="card">
@@ -166,21 +180,21 @@
 
   <!-- 上傳改名下載 -->
   <div style="margin-top:16px;border-top:1px solid #2a3a2a;padding-top:16px;">
-    <div style="font-size:10px;color:#5a8a4a;letter-spacing:1.5px;text-transform:uppercase;font-weight:600;margin-bottom:10px;">Step 4 · 上傳檔案 · 改名 · 下載</div>
-    <label for="fileUpload" style="display:flex;align-items:center;justify-content:center;gap:8px;background:#111;border:1px dashed #3a3a3a;border-radius:8px;padding:16px;cursor:pointer;font-size:13px;color:#888;margin-bottom:10px;">
+    <div style="font-size:10px;color:#2d3020;letter-spacing:1.5px;text-transform:uppercase;font-weight:600;margin-bottom:10px;">Step 4 · 上傳檔案 · 改名 · 下載</div>
+    <label for="fileUpload" style="display:flex;align-items:center;justify-content:center;gap:8px;background:#f0ede8;border:1px dashed #3a3a3a;border-radius:8px;padding:16px;cursor:pointer;font-size:13px;color:#888;margin-bottom:10px;">
       <span style="font-size:20px;">📎</span>
       <span id="uploadLabelText">點此選擇檔案</span>
     </label>
     <input type="file" id="fileUpload" style="display:none;" accept=".pdf,.jpg,.jpeg,.png,.dwg,.xlsx,.docx" onchange="onFileSelected(this)">
-    <div style="font-size:10px;color:#444;margin-bottom:10px;padding:8px 10px;background:#111;border-radius:6px;line-height:1.6;">
+    <div style="font-size:10px;color:#444;margin-bottom:10px;padding:8px 10px;background:#f0ede8;border-radius:6px;line-height:1.6;">
       ✅ PDF / JPG / PNG / DWG / XLSX / DOCX · 建議 200MB 以下<br>
       ❌ 影片檔案請直接存入 Google Drive
     </div>
-    <div id="filePreview" style="display:none;background:#0a0a0a;border:1px solid #2a3a2a;border-radius:8px;padding:10px 12px;margin-bottom:10px;">
+    <div id="filePreview" style="display:none;background:#ebe8e2;border:1px solid #2a3a2a;border-radius:8px;padding:10px 12px;margin-bottom:10px;">
       <div style="font-size:10px;color:#555;margin-bottom:3px;">原始檔名</div>
       <div id="originalFilename" style="font-size:11px;font-family:monospace;color:#777;word-break:break-all;margin-bottom:8px;"></div>
-      <div style="font-size:10px;color:#5a8a4a;margin-bottom:3px;">改名後</div>
-      <div id="newFilenamePreview" style="font-size:12px;font-family:monospace;color:#7ec86e;word-break:break-all;"></div>
+      <div style="font-size:10px;color:#2d3020;margin-bottom:3px;">改名後</div>
+      <div id="newFilenamePreview" style="font-size:12px;font-family:monospace;color:#2d3020;word-break:break-all;"></div>
     </div>
     <button class="btn btn-copy" id="downloadBtn" style="width:100%;display:none;padding:13px;" onclick="downloadRenamed()">⬇ 下載改好名稱的檔案</button>
   </div>
@@ -198,7 +212,9 @@ const DATA_URL = './data.json';
 
 let projects = [];
 let categoryMap = {};
+let vendorMap = {};
 let selectedSub = null;
+let selectedVendor = null;
 
 function isIOS() { return /iphone|ipad|ipod/i.test(navigator.userAgent); }
 function isStandalone() { return window.navigator.standalone === true; }
@@ -221,6 +237,7 @@ async function loadData() {
     const data = await res.json();
     projects = data.projects || [];
     categoryMap = data.categoryMap || {};
+    vendorMap = data.vendors || {};
     renderProjectSelect();
     renderMainCategorySelect();
     const updated = data.updatedAt ? new Date(data.updatedAt).toLocaleString('zh-TW') : '';
@@ -284,12 +301,14 @@ function generate() {
   if (!projectCode) { showToast('請選擇案件'); return; }
   if (!mainCat) { showToast('請選擇大類'); return; }
   if (!selectedSub) { showToast('請選擇細項'); return; }
+  if (mainCat === 'C' && !selectedVendor) { showToast('請選擇廠商名稱'); return; }
   if (!dateRaw) { showToast('請選擇日期'); return; }
   const dateStr = dateRaw.replace(/-/g, '');
   const project = projects.find(p => p.code === projectCode);
   const catLabel = categoryMap[mainCat]?.label || mainCat;
   const versionStr = version ? `_${version}` : '';
-  const filename = `${projectCode}_${project?.name || ''}_${selectedSub.code}_${selectedSub.label}_${dateStr}${versionStr}${ext}`;
+  const vendorSuffix = (mainCat === 'C' && selectedVendor) ? `_${selectedVendor}` : '';
+  const filename = `${projectCode}_${project?.name || ''}_${selectedSub.code}_${selectedSub.label}${vendorSuffix}_${dateStr}${versionStr}${ext}`;
   window._lastFilename = filename;
   window._lastProject = project;
   window._lastCatLabel = catLabel;
